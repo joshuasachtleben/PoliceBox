@@ -3,6 +3,8 @@ package com.hambonegamestudios.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.hambonegamestudios.GameWorld.GameRenderer;
+import com.hambonegamestudios.GameWorld.GameWorld;
 
 /**
  * Created by: Joshua Sachtleben
@@ -11,10 +13,22 @@ import com.badlogic.gdx.graphics.GL20;
  * Project:    PoliceBox
  */
 public class GameScreen implements Screen{
+
+    private GameWorld world;
+    private GameRenderer renderer;
+
+    public GameScreen() {
+        world = new GameWorld();
+        renderer = new GameRenderer(world);
+    }
+
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(34/255.0f, 34/255.0f, 34/255.0f, 1.0f);
+        Gdx.gl.glClearColor(34 / 255.0f, 34 / 255.0f, 34 / 255.0f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        world.update(delta);
+        renderer.render();
     }
 
     @Override
