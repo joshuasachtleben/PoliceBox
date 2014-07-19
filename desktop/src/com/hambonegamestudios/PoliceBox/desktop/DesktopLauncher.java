@@ -7,6 +7,8 @@ import com.hambonegamestudios.PoliceBox.PBGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.title = "Police Box";
 		new LwjglApplication(new PBGame(), config);
+
 	}
 }
