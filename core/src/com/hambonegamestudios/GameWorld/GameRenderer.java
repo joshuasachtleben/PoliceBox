@@ -2,6 +2,7 @@ package com.hambonegamestudios.GameWorld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hambonegamestudios.PoliceBox.PBGame;
 
 /**
@@ -14,12 +15,20 @@ public class GameRenderer {
 
     private GameWorld myWorld;
     private OrthographicCamera camera;
+    private int width;
+    private int height;
+    private ShapeRenderer shapeRenderer;
 
     public GameRenderer(GameWorld world) {
         myWorld = world;
+        width = Gdx.graphics.getWidth();
+        height = Gdx.graphics.getHeight();
         camera = new OrthographicCamera();
         // may be able to divide width and height by 2 (or more) to scale objects when drawn
-        camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.setToOrtho(true, width, height);
+        System.out.println("Orthographic Camera created with dimensions " + width + " x " + height);
+        shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setProjectionMatrix(camera.combined);
     }
 
     public void render() {
