@@ -16,7 +16,7 @@ public class GameWorld {
     private TARDIS tardis;
 
     public GameWorld() {
-        tardis = new TARDIS(0, 0, 25, 45);
+        tardis = new TARDIS(0, 0, 32, 32);
     }
 
     public void update(float delta) {

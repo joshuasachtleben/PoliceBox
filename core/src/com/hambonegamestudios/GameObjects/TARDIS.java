@@ -18,27 +18,24 @@ public class TARDIS {
     private int width;
     private int height;
 
-    private Rectangle rectangle;
-
     public TARDIS(float x, float y, int width, int height) {
         this.width = width;
         this.height = height;
-        rectangle = new Rectangle(x, y, width, height);
         position = new Vector2(x, y);  // starts at the coordinates passed to the constructor
-        velocity = new Vector2(300, 300);  // starts with a velocity of 3
+        velocity = new Vector2(75, 75);  // starts with a velocity of 3
         acceleration = new Vector2(0, 460); // starts with positive y-axis acceleration to make it fall to the bottom of the screen
     }
 
     public void update(float delta, int width, int height) {
 
-        if(position.x + this.width > width) {
-            velocity.x = -300.0f;
-        } else if (position.x < 0) {
-            velocity.x = 300.0f;
-        } else if (position.y + this.height > height) {
-            velocity.y = -300.0f;
-        } else if (position.y < 0) {
-            velocity.y = 300.0f;
+        if(position.x + this.width - 9 > width/3) { // TODO Find a way to do this better.  Divide by 3 to match the scaling in GameRenderer for now
+            velocity.x = -75.0f;
+        } else if (position.x + 9 < 0) {
+            velocity.x = 75.0f;
+        } else if (position.y + this.height - 3 > height/3) { // TODO Find a way to do this better.  Divide by 3 to match the scaling in GameRenderer for now
+            velocity.y = -75.0f;
+        } else if (position.y + 3 < 0) {
+            velocity.y = 75.0f;
         }
 
         position.add(velocity.cpy().scl(delta));

@@ -8,6 +8,7 @@ package com.hambonegamestudios.PoliceBox;
  */
 
 import com.badlogic.gdx.Game;
+import com.hambonegamestudios.GameHelpers.AssetLoader;
 import com.hambonegamestudios.Screens.GameScreen;
 
 public class PBGame extends Game {
@@ -15,7 +16,13 @@ public class PBGame extends Game {
     @Override
     public void create() {
         System.out.println("PBGame - create() called");
-
+        AssetLoader.load();
         setScreen(new GameScreen());
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        AssetLoader.dispose();
     }
 }

@@ -16,6 +16,7 @@ public class GameScreen implements Screen{
 
     private GameWorld world;
     private GameRenderer renderer;
+    private float runTime = 0;
 
     public GameScreen() {
         world = new GameWorld();
@@ -26,9 +27,9 @@ public class GameScreen implements Screen{
     public void render(float delta) {
         Gdx.gl.glClearColor(34 / 255.0f, 34 / 255.0f, 34 / 255.0f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        runTime += delta;
         world.update(delta);
-        renderer.render();
+        renderer.render(runTime);
     }
 
     @Override
