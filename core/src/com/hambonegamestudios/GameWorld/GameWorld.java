@@ -1,7 +1,7 @@
 package com.hambonegamestudios.GameWorld;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
+import com.hambonegamestudios.GameObjects.TARDIS;
 
 /**
  * Created by: Joshua Sachtleben
@@ -11,28 +11,20 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class GameWorld {
 
-    private Rectangle rectangle = new Rectangle(0, 0, 25, 50);
     private int width = Gdx.graphics.getWidth();
     private int height = Gdx.graphics.getHeight();
-    private int xVel = 1, yVel = 1;
+    private TARDIS tardis;
+
+    public GameWorld() {
+        tardis = new TARDIS(0, 0, 25, 45);
+    }
 
     public void update(float delta) {
         System.out.println("GameWorld - update() called");
-        if(rectangle.x + rectangle.getWidth() > width) {
-            xVel = -3;
-        } else if (rectangle.x < 0) {
-            xVel = 3;
-        } else if (rectangle.y + rectangle.getHeight() > height) {
-            yVel = -3;
-        } else if (rectangle.y < 0) {
-            yVel = 3;
-        }
-
-        rectangle.x += xVel;
-        rectangle.y += yVel;
+        tardis.update(delta, width, height);
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
+    public TARDIS getTardis(){
+        return tardis;
     }
 }

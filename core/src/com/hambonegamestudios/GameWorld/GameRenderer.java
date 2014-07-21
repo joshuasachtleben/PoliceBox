@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.hambonegamestudios.GameObjects.TARDIS;
 
 /**
  * Created by: Joshua Sachtleben
@@ -19,6 +20,7 @@ public class GameRenderer {
     private int width;
     private int height;
     private ShapeRenderer shapeRenderer;
+    private TARDIS tardis;
 
     public GameRenderer(GameWorld world) {
         myWorld = world;
@@ -30,6 +32,8 @@ public class GameRenderer {
         System.out.println("Orthographic Camera created with dimensions " + width + " x " + height);
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(camera.combined);
+
+        initGameObjects();
     }
 
     public void render() {
@@ -52,7 +56,7 @@ public class GameRenderer {
         shapeRenderer.setColor(16/255.0f, 35/255.0f, 114/255.0f, 1.0f);
 
         // Draw the rectangle from myWorld
-        shapeRenderer.rect(myWorld.getRectangle().x, myWorld.getRectangle().y, myWorld.getRectangle().width, myWorld.getRectangle().height);
+        shapeRenderer.rect(tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
 
         // Tells shapeRenderer to finish rendering
         shapeRenderer.end();
@@ -68,9 +72,13 @@ public class GameRenderer {
         shapeRenderer.setColor(255/255.0f, 255/255.0f, 255/255.0f, 1.0f);
 
         // Draw the rectangle
-        shapeRenderer.rect(myWorld.getRectangle().x, myWorld.getRectangle().y, myWorld.getRectangle().width, myWorld.getRectangle().height);
+        shapeRenderer.rect(tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
 
         // Tells shapeRenderer to finish rendering
         shapeRenderer.end();
+    }
+
+    public void initGameObjects() {
+        tardis = myWorld.getTardis();
     }
 }
