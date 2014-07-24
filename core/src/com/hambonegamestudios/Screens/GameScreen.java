@@ -28,7 +28,9 @@ public class GameScreen implements Screen{
         Gdx.gl.glClearColor(34 / 255.0f, 34 / 255.0f, 34 / 255.0f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         runTime += delta;
+        // Update game objects in the world
         world.update(delta);
+        // Render game objects that have been updated
         renderer.render(runTime);
     }
 
