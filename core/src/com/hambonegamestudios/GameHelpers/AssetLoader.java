@@ -3,6 +3,7 @@ package com.hambonegamestudios.GameHelpers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -17,6 +18,7 @@ public class AssetLoader {
     public static Texture backgroundTexture;
     public static TextureRegion tardis_0, tardis_1, tardis_2, tardis_3, tardis_4, tardis_5, tardis_6, tardis_7, tardis_8, tardis_9, tardis_10, tardis_11, tardis_12;
     public static Animation tardisAnimation;
+    public static Sprite stars;
 
     public static void load() {
 
@@ -26,6 +28,8 @@ public class AssetLoader {
 
         backgroundTexture = new Texture(Gdx.files.internal("Starfield.png"));
         backgroundTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        backgroundTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        stars = new Sprite(backgroundTexture, 0, 0, 32, 32);
 
         /*
          * Load TARDIS textures

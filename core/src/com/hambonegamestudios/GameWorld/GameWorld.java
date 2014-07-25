@@ -11,12 +11,12 @@ import com.hambonegamestudios.GameObjects.TARDIS;
  */
 public class GameWorld {
 
-    private int width = Gdx.graphics.getWidth();
-    private int height = Gdx.graphics.getHeight();
+    private int width = 400;
+    private int height = 400;
     private TARDIS tardis;
 
     public GameWorld() {
-        tardis = new TARDIS(0, 0, 32, 32);
+        tardis = new TARDIS(width/2, height/2, 32, 32);
     }
 
     public void update(float delta) {
@@ -26,5 +26,13 @@ public class GameWorld {
 
     public TARDIS getTardis(){
         return tardis;
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public int getHeight(){
+        return height;
     }
 }

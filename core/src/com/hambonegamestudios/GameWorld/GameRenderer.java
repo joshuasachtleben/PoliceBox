@@ -32,7 +32,7 @@ public class GameRenderer {
         height = Gdx.graphics.getHeight();
         camera = new OrthographicCamera();
         // may be able to divide width and height by 2 (or more) to scale objects when drawn
-        camera.setToOrtho(true, width / 2, height / 2); // TODO Find a way to do this better.  Match the denominator found in TARDIS.java
+        camera.setToOrtho(true, width, height); // TODO Find a way to do this better.  Match the denominator found in TARDIS.java
         System.out.println("Orthographic Camera created with dimensions " + width + " x " + height);
 
         batch = new SpriteBatch();
@@ -55,16 +55,14 @@ public class GameRenderer {
         // Draw the animated sprite
         batch.begin();
 
-        final int tWidth = AssetLoader.backgroundTexture.getWidth();
-        final int tHeight = AssetLoader.backgroundTexture.getHeight();
-        final int regionWidth = height;
-        final int regionHeight = width;
+//        for (int y = 0; y < myWorld.getHeight() / AssetLoader.backgroundTexture.getHeight(); y++) {
+//            for (int x = 0; x < myWorld.getWidth() / AssetLoader.backgroundTexture.getWidth(); x++) {
+//                //System.out.println("Tiles: " + x);
+//                batch.draw(AssetLoader.backgroundTexture, x * AssetLoader.backgroundTexture.getWidth(), y * AssetLoader.backgroundTexture.getHeight());
+//            }
+//        }
 
-        for (int i = 0; i < regionWidth / tWidth; i++) {
-            for (int k = 0; k < regionHeight / tHeight; k++) {
-                batch.draw(AssetLoader.backgroundTexture, i*tWidth, k);
-            }
-        }
+        AssetLoader.stars.draw(batch);
 
         batch.draw(AssetLoader.tardisAnimation.getKeyFrame(runTime), tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
         //batch.draw(AssetLoader.backgroundTexture, tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
