@@ -3,6 +3,7 @@ package com.hambonegamestudios.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.hambonegamestudios.GameHelpers.InputHandler;
 import com.hambonegamestudios.GameWorld.GameRenderer;
 import com.hambonegamestudios.GameWorld.GameWorld;
 
@@ -21,6 +22,9 @@ public class GameScreen implements Screen{
     public GameScreen() {
         world = new GameWorld();
         renderer = new GameRenderer(world);
+
+        // Attaching InputHandler
+        Gdx.input.setInputProcessor(new InputHandler(world.getTardis()));
     }
 
     @Override

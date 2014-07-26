@@ -22,11 +22,13 @@ public class TARDIS {
         this.width = width;
         this.height = height;
         position = new Vector2(x, y);  // starts at the coordinates passed to the constructor
-        velocity = new Vector2(75, 75);  // starts with a velocity of 3
+        velocity = new Vector2(0, 0);
         acceleration = new Vector2(0, 460); // starts with positive y-axis acceleration to make it fall to the bottom of the screen
     }
 
     public void update(float delta, int width, int height) {
+
+        //velocity.add(acceleration.cpy().scl(delta));
 
         if(position.x + this.width - 9 > width) { // TODO Find a way to do this better.  Divide by 3 to match the scaling in GameRenderer for now
             velocity.x = -75.0f;
@@ -58,7 +60,15 @@ public class TARDIS {
     }
 
     public Vector2 getPosition() {
-        System.out.println("X: " + position.x + " Y: " + position.y);
+        //System.out.println("X: " + position.x + " Y: " + position.y);
         return position;
+    }
+
+    public void setVelocity(Vector2 velocity) {
+        this.velocity = velocity;
+    }
+
+    public void setAcceleration(Vector2 acceleration){
+        this.acceleration = acceleration;
     }
 }

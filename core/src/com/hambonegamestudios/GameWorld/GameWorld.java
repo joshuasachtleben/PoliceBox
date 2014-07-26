@@ -11,8 +11,8 @@ import com.hambonegamestudios.GameObjects.TARDIS;
  */
 public class GameWorld {
 
-    private int width = 400;
-    private int height = 400;
+    private int width = 1000;
+    private int height = 1000;
     private TARDIS tardis;
 
     public GameWorld() {
@@ -20,7 +20,7 @@ public class GameWorld {
     }
 
     public void update(float delta) {
-        System.out.println("GameWorld - update() called");
+        //System.out.println("GameWorld - update() called");
         tardis.update(delta, width, height);
     }
 
