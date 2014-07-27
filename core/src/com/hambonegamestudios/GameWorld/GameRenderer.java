@@ -73,11 +73,16 @@ public class GameRenderer {
             width: How far across to draw the rectangle that is displaying the texture
             height: How far from top to bottom to draw the rectangle that is displaying the texture
             u: starting x-coordinate of texture (left)
-            v: starting y-coordinate of texture (bottom)
+            v: starting y-coordinate of texture (top)
             u2: ending x-coordinate of texture (right)
-            v2: ending y-coordinate of texture (top)
-            Note: since this batch.draw() method is using a texture that is set to repeat itself when it reaches the end of the drawing area, this method will allow repeating for the full width and height specified.
-                  For example, if you had a texture that was 512x512, and you specified a u,v of (0, 900) and a u2,v2 of (720, 0), and if you didn't have the texture repeat, it would display the 512x512 texture at the top, left, and then just black (or whatever was behind) at the bottom, right.
+            v2: ending y-coordinate of texture (bottom)
+            From http://www.java-gaming.org/index.php?topic=29863.0:
+
+                You need to give SpriteBatch UVs using:
+                draw(Texture texture, float x, float y, float width, float height, float u, float v, float u2, float v2)
+                The UVs are from 0 to 1, where 0 is the top (v) / left (u) and 1 is the bottom (v) / right (u). You can use values outside this range and it will repeat. Eg, use 0,0,2,1 and it will repeat twice horizontally and once vertically.
+
+                You can also use a TextureRegion to specify the UVs. Also see the TextureRegion scroll method.
 
          */
         tilesWidth = myWorld.getWidth()  / AssetLoader.backgroundTexture.getWidth();
