@@ -21,6 +21,7 @@ public class GameRenderer {
     private OrthographicCamera camera;
     private int cameraWidth, cameraHeight;
     private TARDIS tardis;
+    private int tardisWidth, tardisHeight, tardisPositionX0, tardisPositionX1, tardisPositionY0, tardisPositionY1;
     private BitmapFont font;
     private SpriteBatch batch;
     private float cameraZoom;
@@ -61,10 +62,29 @@ public class GameRenderer {
         batch.begin();
 
         // Draw background tiles
-        batch.draw(AssetLoader.boundingBoxTexture, 0, 0, 0, 0, AssetLoader.boundingBoxTexture.getWidth(), AssetLoader.boundingBoxTexture.getHeight());
+        for (int y = -1; y < myWorld.getHeight() / AssetLoader.boundingBoxTexture.getHeight() + 1; y ++) {
+            for (int x = -1; x < myWorld.getWidth() / AssetLoader.boundingBoxTexture.getWidth() + 1; x++) {
+                batch.draw(AssetLoader.boundingBoxTexture, x * AssetLoader.boundingBoxTexture.getWidth(), y * AssetLoader.boundingBoxTexture.getHeight(), 0, 0, AssetLoader.boundingBoxTexture.getWidth(), AssetLoader.boundingBoxTexture.getHeight());
+            }
+        }
 
+        // Get TARDIS properties
+        tardisWidth = tardis.getWidth();
+        tardisHeight = tardis.getHeight();
+        tardisPositionX0 = (int)tardis.getPosition().x;
+        tardisPositionX1 = tardisPositionX0 + tardisWidth;
+        tardisPositionY0 = (int)tardis.getPosition().y;
+        tardisPositionY1 = tardisPositionY0 + tardisHeight;
+
+        // Render the TARDIS
         batch.draw(AssetLoader.tardisAnimation.getKeyFrame(runTime), tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
-        font.drawMultiLine(batch, "TARDIS Location\nX: " + (int)tardis.getPosition().x + "\nY: " + (int)tardis.getPosition().y, camera.position.x - (cameraWidth / 2), camera.position.y - (cameraHeight / 2));
+        font.drawMultiLine(batch,
+                "TARDIS Location\n" +
+                "X0: " + tardisPositionX0 + "\n" +
+                "X1: " + tardisPositionX1 + "\n" +
+                "Y0: " + tardisPositionY0 + "\n" +
+                "Y1: " + tardisPositionY1,
+                camera.position.x - (cameraWidth / 2), camera.position.y - (cameraHeight / 2));
         batch.end();
 
         // Draw center crosshair for debugging
