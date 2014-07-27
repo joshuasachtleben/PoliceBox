@@ -16,6 +16,7 @@ public class TARDIS {
     private float rotation;
     private int width;
     private int height;
+    private boolean moveUp, moveDown, moveLeft, moveRight;
 
     public TARDIS(float x, float y, int width, int height) {
         this.width = width;
@@ -23,27 +24,39 @@ public class TARDIS {
         position = new Vector2(x, y);  // starts at the coordinates passed to the constructor
         velocity = new Vector2(0, 0);
         acceleration = new Vector2(0, 460); // starts with positive y-axis acceleration to make it fall to the bottom of the screen
+        moveUp = false;
+        moveDown = false;
+        moveLeft = false;
+        moveRight = false;
     }
 
-    public void update(float delta, int width, int height) {
+    public void update(float delta, int levelWidth, int levelHeight) {
 
         //velocity.add(acceleration.cpy().scl(delta));
+        //position.add(velocity.cpy().scl(delta));
 
-        if(position.x + this.width - 9 > width) {
-            velocity.x = -75.0f;
-        } else if (position.x + 9 < 0) {
-            velocity.x = 75.0f;
-        } else if (position.y + this.height - 3 > height) {
-            velocity.y = -75.0f;
-        } else if (position.y + 3 < 0) {
-            velocity.y = 75.0f;
+        if(moveUp) position.y -= 100 * delta;
+        if(moveDown) position.y += 100 * delta;
+        if(moveLeft) position.x -= 100 * delta;
+        if(moveRight) position.x += 100 * delta;
+
+
+        if(position.x + this.width  > levelWidth) {
+            position.x = levelWidth - this.width;
         }
-
-        position.add(velocity.cpy().scl(delta));
+        if (position.x <= 0) {
+            position.x = 0;
+        }
+        if (position.y + this.height > levelHeight) {
+            position.y = levelHeight - this.height;
+        }
+        if (position.y <= 0) {
+            position.y = 0;
+        }
     }
 
     public void onClick() {
-        velocity.y = -140; // moves the TARDIS up
+        System.out.println("TARDIS click");
     }
 
     public int getWidth() {
@@ -69,5 +82,21 @@ public class TARDIS {
 
     public void setAcceleration(Vector2 acceleration){
         this.acceleration = acceleration;
+    }
+
+    public void setMoveUp(boolean x) {
+        moveUp = x;
+    }
+
+    public void setMoveDown(boolean x) {
+        moveDown = x;
+    }
+
+    public void setMoveLeft(boolean x) {
+        moveLeft = x;
+    }
+
+    public void setMoveRight(boolean x) {
+        moveRight = x;
     }
 }

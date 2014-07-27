@@ -28,22 +28,22 @@ public class InputHandler implements InputProcessor{
     public boolean keyDown(int keycode) {
         switch(keycode) {
             case Input.Keys.W:
-                tardis.setVelocity(new Vector2(0, -75));
+                tardis.setMoveUp(true);
                 break;
             case Input.Keys.A:
-                tardis.setVelocity(new Vector2(-75, 0));
+                tardis.setMoveLeft(true);
                 break;
             case Input.Keys.S:
-                tardis.setVelocity(new Vector2(0, 75));
+                tardis.setMoveDown(true);
                 break;
             case Input.Keys.D:
-                tardis.setVelocity(new Vector2(75, 0));
+                tardis.setMoveRight(true);
                 break;
             case Input.Keys.LEFT_BRACKET:
-                renderer.setCameraZoom(-.01f);
+                renderer.setCameraZoom(-.03f);
                 break;
             case Input.Keys.RIGHT_BRACKET:
-                renderer.setCameraZoom(.01f);
+                renderer.setCameraZoom(.03f);
                 break;
             default:
                 return false;
@@ -53,7 +53,23 @@ public class InputHandler implements InputProcessor{
 
     @Override
     public boolean keyUp(int keycode) {
-        return false;
+        switch(keycode) {
+            case Input.Keys.W:
+                tardis.setMoveUp(false);
+                break;
+            case Input.Keys.A:
+                tardis.setMoveLeft(false);
+                break;
+            case Input.Keys.S:
+                tardis.setMoveDown(false);
+                break;
+            case Input.Keys.D:
+                tardis.setMoveRight(false);
+                break;
+            default:
+                return false;
+        }
+        return true;
     }
 
     @Override
@@ -84,6 +100,14 @@ public class InputHandler implements InputProcessor{
 
     @Override
     public boolean scrolled(int amount) {
-        return false;
+        if(amount == -1) {
+            renderer.setCameraZoom(-.03f);
+            return true;
+        } else if(amount == 1) {
+            renderer.setCameraZoom(.03f);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
