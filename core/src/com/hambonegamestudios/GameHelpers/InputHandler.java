@@ -101,10 +101,10 @@ public class InputHandler implements InputProcessor{
     @Override
     public boolean scrolled(int amount) {
         if(amount == -1) {
-            renderer.setCameraZoom(-.03f);
+            renderer.setCameraZoom(-.05f);
             return true;
         } else if(amount == 1) {
-            renderer.setCameraZoom(.03f);
+            renderer.setCameraZoom(.05f);
             return true;
         } else {
             return false;

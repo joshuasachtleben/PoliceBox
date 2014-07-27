@@ -64,7 +64,7 @@ public class GameRenderer {
         batch.draw(AssetLoader.boundingBoxTexture, 0, 0, 0, 0, AssetLoader.boundingBoxTexture.getWidth(), AssetLoader.boundingBoxTexture.getHeight());
 
         batch.draw(AssetLoader.tardisAnimation.getKeyFrame(runTime), tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
-        font.drawMultiLine(batch, "X: " + (int)tardis.getPosition().x + "\nY: " + (int)tardis.getPosition().y, tardis.getPosition().x, tardis.getPosition().y - 40);
+        font.drawMultiLine(batch, "TARDIS Location\nX: " + (int)tardis.getPosition().x + "\nY: " + (int)tardis.getPosition().y, camera.position.x - (cameraWidth / 2), camera.position.y - (cameraHeight / 2));
         batch.end();
 
         // Draw center crosshair for debugging
