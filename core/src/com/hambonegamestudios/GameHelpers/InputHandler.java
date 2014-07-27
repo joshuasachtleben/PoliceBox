@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.hambonegamestudios.GameObjects.TARDIS;
+import com.hambonegamestudios.GameWorld.GameRenderer;
 
 /**
  * Created by: Joshua Sachtleben
@@ -14,10 +15,14 @@ import com.hambonegamestudios.GameObjects.TARDIS;
 public class InputHandler implements InputProcessor{
 
     private TARDIS tardis;
+    private GameRenderer renderer;
 
-    public InputHandler(TARDIS tardis) {
+    public InputHandler(TARDIS tardis, GameRenderer renderer) {
         this.tardis = tardis;
+        this.renderer = renderer;
     }
+
+
 
     @Override
     public boolean keyDown(int keycode) {
@@ -34,6 +39,12 @@ public class InputHandler implements InputProcessor{
             case Input.Keys.D:
                 tardis.setVelocity(new Vector2(75, 0));
                 break;
+            case Input.Keys.LEFT_BRACKET:
+                renderer.setCameraZoom(-.01f);
+                break;
+            case Input.Keys.RIGHT_BRACKET:
+                renderer.setCameraZoom(.01f);
+                break;
             default:
                 return false;
         }
@@ -46,7 +57,9 @@ public class InputHandler implements InputProcessor{
     }
 
     @Override
-    public boolean keyTyped(char character) { return false;}
+    public boolean keyTyped(char character) {
+        return false;
+    }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {

@@ -1,6 +1,5 @@
 package com.hambonegamestudios.GameObjects;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -30,11 +29,11 @@ public class TARDIS {
 
         //velocity.add(acceleration.cpy().scl(delta));
 
-        if(position.x + this.width - 9 > width) { // TODO Find a way to do this better.  Divide by 3 to match the scaling in GameRenderer for now
+        if(position.x + this.width - 9 > width) {
             velocity.x = -75.0f;
         } else if (position.x + 9 < 0) {
             velocity.x = 75.0f;
-        } else if (position.y + this.height - 3 > height) { // TODO Find a way to do this better.  Divide by 3 to match the scaling in GameRenderer for now
+        } else if (position.y + this.height - 3 > height) {
             velocity.y = -75.0f;
         } else if (position.y + 3 < 0) {
             velocity.y = 75.0f;

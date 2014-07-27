@@ -7,9 +7,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
 import com.hambonegamestudios.GameHelpers.AssetLoader;
 import com.hambonegamestudios.GameObjects.StarBackground;
 import com.hambonegamestudios.GameObjects.TARDIS;
+
+import java.awt.*;
 
 /**
  * Created by: Joshua Sachtleben
@@ -27,7 +30,6 @@ public class GameRenderer {
     private TARDIS tardis;
     private SpriteBatch batch;
     private float cameraZoom;
-
     public GameRenderer(GameWorld world) {
         myWorld = world;
         width = Gdx.graphics.getWidth();
@@ -39,9 +41,6 @@ public class GameRenderer {
         // may be able to divide width and height by 2 (or more) to scale objects when drawn
         camera.setToOrtho(true, 100, 100); // TODO Find a way to do this better.  Match the denominator found in TARDIS.java
         System.out.println("Orthographic Camera created with dimensions " + width + " x " + height);
-
-
-
         batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
 
@@ -63,15 +62,7 @@ public class GameRenderer {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
-        // Draw the animated sprite
         batch.begin();
-
-//        for (int y = -2; y < myWorld.getHeight() / AssetLoader.backgroundTexture.getHeight() + 2; y++) {
-//            for (int x = 0; x < myWorld.getWidth() / AssetLoader.backgroundTexture.getWidth(); x++) {
-//                //System.out.println("Tiles: " + x);
-//                batch.draw(AssetLoader.backgroundTexture, x * AssetLoader.backgroundTexture.getWidth(), y * AssetLoader.backgroundTexture.getHeight());
-//            }
-//        }
 
         /*
             http://www.java-gaming.org/index.php?topic=32157.0
@@ -89,19 +80,17 @@ public class GameRenderer {
                   For example, if you had a texture that was 512x512, and you specified a u,v of (0, 900) and a u2,v2 of (720, 0), and if you didn't have the texture repeat, it would display the 512x512 texture at the top, left, and then just black (or whatever was behind) at the bottom, right.
 
          */
-        tilesWidth = width + cameraWidth / AssetLoader.backgroundTexture.getWidth();
-        tilesHeight = height + cameraHeight / AssetLoader.backgroundTexture.getHeight();
-        batch.draw(AssetLoader.backgroundTexture, -cameraWidth / 2, -cameraHeight / 2,
+        tilesWidth = myWorld.getWidth()  / AssetLoader.backgroundTexture.getWidth();
+        tilesHeight = myWorld.getHeight()  / AssetLoader.backgroundTexture.getHeight();
+        batch.draw(AssetLoader.backgroundTexture, 0, 0,
                 AssetLoader.backgroundTexture.getWidth() * tilesWidth,
                 AssetLoader.backgroundTexture.getHeight() * tilesHeight,
-                0, tilesHeight,
-                tilesWidth, 0
+                0, tilesWidth,
+                tilesHeight, 0
                 );
 
-        //AssetLoader.stars.draw(batch);
-
         batch.draw(AssetLoader.tardisAnimation.getKeyFrame(runTime), tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
-        //batch.draw(AssetLoader.backgroundTexture, tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
+
         batch.end();
     }
 
@@ -109,11 +98,8 @@ public class GameRenderer {
         tardis = myWorld.getTardis();
     }
 
-    public float getCameraZoom () {
-        return cameraZoom;
-    }
-
-    public void setCameraZoom (int zoomAmount) {
+    public void setCameraZoom (float zoomAmount) {
         cameraZoom += zoomAmount;
     }
+
 }
