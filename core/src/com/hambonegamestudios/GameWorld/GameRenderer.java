@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hambonegamestudios.GameHelpers.AssetLoader;
 import com.hambonegamestudios.GameObjects.TARDIS;
 
@@ -25,7 +24,6 @@ public class GameRenderer {
     private BitmapFont font;
     private SpriteBatch batch;
     private float cameraZoom;
-    private ShapeRenderer shapeRenderer;
 
     public GameRenderer(GameWorld world) {
         myWorld = world;
@@ -40,7 +38,6 @@ public class GameRenderer {
         camera.setToOrtho(true, cameraWidth, cameraHeight);
         System.out.println("Orthographic Camera created with dimensions " + cameraWidth + " x " + cameraHeight);
         batch = new SpriteBatch();
-        shapeRenderer = new ShapeRenderer();
         batch.setProjectionMatrix(camera.combined);
 
         initGameObjects();
@@ -84,10 +81,9 @@ public class GameRenderer {
     }
 
     public void setCameraZoom(float zoomAmount) {
-        if(cameraZoom > .10f) {
+        if(cameraZoom + zoomAmount > .10f && cameraZoom + zoomAmount < 1.0f) {
             cameraZoom += zoomAmount;
         }
-        System.out.println(cameraZoom);
     }
 
 }
