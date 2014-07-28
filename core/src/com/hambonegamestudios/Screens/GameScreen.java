@@ -35,7 +35,7 @@ public class GameScreen implements Screen{
         // Update game objects in the world
         world.update(delta);
         // Render game objects that have been updated
-        renderer.render(runTime);
+        renderer.render(runTime, delta);
     }
 
     @Override

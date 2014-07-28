@@ -6,7 +6,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hambonegamestudios.GameHelpers.AssetLoader;
+import com.hambonegamestudios.GameObjects.Star;
+import com.hambonegamestudios.GameObjects.Starfield;
 import com.hambonegamestudios.GameObjects.TARDIS;
 
 /**
@@ -20,10 +23,12 @@ public class GameRenderer {
     private GameWorld myWorld;
     private OrthographicCamera camera;
     private int cameraWidth, cameraHeight;
+    private Starfield starfield;
     private TARDIS tardis;
     private int tardisWidth, tardisHeight, tardisPositionX0, tardisPositionX1, tardisPositionY0, tardisPositionY1;
     private BitmapFont font;
     private SpriteBatch batch;
+    private ShapeRenderer shapeRenderer;
     private float cameraZoom;
 
     public GameRenderer(GameWorld world) {
@@ -39,13 +44,15 @@ public class GameRenderer {
         camera.setToOrtho(true, cameraWidth, cameraHeight);
         System.out.println("Orthographic Camera created with dimensions " + cameraWidth + " x " + cameraHeight);
         batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
         batch.setProjectionMatrix(camera.combined);
 
         initGameObjects();
     }
 
-    public void render(float runTime) {
+    public void render(float runTime, float delta) {
         //System.out.println("GameRenderer - render() called");
+        System.out.println("Runtime: " + runTime + ", Delta: " + delta);
 
         // Draw a black background to prevent flickering.
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -61,12 +68,16 @@ public class GameRenderer {
 
         batch.begin();
 
+        // Render a test starfield
+        starfield.render(batch, delta);
+
         // Draw background tiles
-        for (int y = -1; y < myWorld.getHeight() / AssetLoader.boundingBoxTexture.getHeight() + 1; y ++) {
-            for (int x = -1; x < myWorld.getWidth() / AssetLoader.boundingBoxTexture.getWidth() + 1; x++) {
-                batch.draw(AssetLoader.boundingBoxTexture, x * AssetLoader.boundingBoxTexture.getWidth(), y * AssetLoader.boundingBoxTexture.getHeight(), 0, 0, AssetLoader.boundingBoxTexture.getWidth(), AssetLoader.boundingBoxTexture.getHeight());
-            }
-        }
+//        for (int y = -1; y < myWorld.getHeight() / 32 + 1; y ++) {
+//            for (int x = -1; x < myWorld.getWidth() / 32 + 1; x++) {
+//                //batch.draw(AssetLoader.starsAnimation.getKeyFrame(runTime), x * AssetLoader.backgroundTexture.getWidth(), y * AssetLoader.backgroundTexture.getHeight(), 0, 0, AssetLoader.backgroundTexture.getWidth(), AssetLoader.backgroundTexture.getHeight());
+//                batch.draw(AssetLoader.starsAnimation.getKeyFrame(runTime), x * 32, y * 32, 32, 32);
+//            }
+//        }
 
         // Get TARDIS properties
         tardisWidth = tardis.getWidth();
@@ -85,6 +96,9 @@ public class GameRenderer {
                 "Y0: " + tardisPositionY0 + "\n" +
                 "Y1: " + tardisPositionY1,
                 camera.position.x - (cameraWidth / 2), camera.position.y - (cameraHeight / 2));
+
+
+
         batch.end();
 
         // Draw center crosshair for debugging
@@ -97,6 +111,7 @@ public class GameRenderer {
     }
 
     public void initGameObjects() {
+        starfield = new Starfield(myWorld.getWidth(), myWorld.getHeight(), 1000);
         tardis = myWorld.getTardis();
     }
 
@@ -105,5 +120,4 @@ public class GameRenderer {
             cameraZoom += zoomAmount;
         }
     }
-
 }

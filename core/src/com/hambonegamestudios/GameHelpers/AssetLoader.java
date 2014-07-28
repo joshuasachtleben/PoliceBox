@@ -3,7 +3,6 @@ package com.hambonegamestudios.GameHelpers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -17,7 +16,9 @@ public class AssetLoader {
     public static Texture TARDIStexture;
     public static Texture backgroundTexture;
     public static Texture boundingBoxTexture;
+    public static TextureRegion stars_0, stars_1, stars_2, stars_3, stars_4, stars_5, stars_6, stars_7, stars_8, stars_9, stars_10, stars_11;
     public static TextureRegion tardis_0, tardis_1, tardis_2, tardis_3, tardis_4, tardis_5, tardis_6, tardis_7, tardis_8, tardis_9, tardis_10, tardis_11, tardis_12;
+    public static Animation starsAnimation;
     public static Animation tardisAnimation;
 
     public static void load() {
@@ -28,7 +29,35 @@ public class AssetLoader {
 
         backgroundTexture = new Texture(Gdx.files.internal("Starfield.png"));
         backgroundTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        backgroundTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+
+        stars_0 = new TextureRegion(backgroundTexture, 0, 0, 32, 32);
+        stars_0.flip(false, true);
+        stars_1 = new TextureRegion(backgroundTexture, 32, 0, 32, 32);
+        stars_1.flip(false, true);
+        stars_2 = new TextureRegion(backgroundTexture, 64, 0, 32, 32);
+        stars_2.flip(false, true);
+        stars_3 = new TextureRegion(backgroundTexture, 96, 0, 32, 32);
+        stars_3.flip(false, true);
+        stars_4 = new TextureRegion(backgroundTexture, 128, 0, 32, 32);
+        stars_4.flip(false, true);
+        stars_5 = new TextureRegion(backgroundTexture, 160, 0, 32, 32);
+        stars_5.flip(false, true);
+        stars_6 = new TextureRegion(backgroundTexture, 192, 0, 32, 32);
+        stars_6.flip(false, true);
+        stars_7 = new TextureRegion(backgroundTexture, 224, 0, 32, 32);
+        stars_7.flip(false, true);
+        stars_8 = new TextureRegion(backgroundTexture, 256, 0, 32, 32);
+        stars_8.flip(false, true);
+        stars_9 = new TextureRegion(backgroundTexture, 288, 0, 32, 32);
+        stars_9.flip(false, true);
+        stars_10 = new TextureRegion(backgroundTexture, 320, 0, 32, 32);
+        stars_10.flip(false, true);
+        stars_11 = new TextureRegion(backgroundTexture, 352, 0, 32, 32);
+        stars_11.flip(false, true);
+
+        TextureRegion [] starsBlinking = {stars_0, stars_1, stars_2, stars_3, stars_4, stars_5, stars_6, stars_7, stars_8, stars_9, stars_10, stars_11};
+        starsAnimation = new Animation(.12f, starsBlinking);
+        starsAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
         /*
             Load Bounding Box texture
