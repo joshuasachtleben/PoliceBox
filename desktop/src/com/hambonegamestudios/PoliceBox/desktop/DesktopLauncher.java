@@ -13,5 +13,6 @@ public class DesktopLauncher {
         config.height = config.width / 16* 9;
         new LwjglApplication(new PBGame(), config);
         Keyboard.enableRepeatEvents(true);
+
 	}
 }

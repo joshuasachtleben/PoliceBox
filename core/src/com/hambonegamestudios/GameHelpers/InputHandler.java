@@ -1,5 +1,6 @@
 package com.hambonegamestudios.GameHelpers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
@@ -45,6 +46,9 @@ public class InputHandler implements InputProcessor{
             case Input.Keys.RIGHT_BRACKET:
                 renderer.setCameraZoom(.03f);
                 break;
+            case Input.Keys.F11:
+                Gdx.graphics.setDisplayMode(1920, 1080, true);
+                break;
             default:
                 return false;
         }
@@ -65,6 +69,9 @@ public class InputHandler implements InputProcessor{
                 break;
             case Input.Keys.D:
                 tardis.setMoveRight(false);
+                break;
+            case Input.Keys.F11:
+                Gdx.graphics.setDisplayMode(920, 920/16*9, false);
                 break;
             default:
                 return false;

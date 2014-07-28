@@ -52,7 +52,6 @@ public class GameRenderer {
 
     public void render(float runTime, float delta) {
         //System.out.println("GameRenderer - render() called");
-        System.out.println("Runtime: " + runTime + ", Delta: " + delta);
 
         // Draw a black background to prevent flickering.
         Gdx.gl.glClearColor(0, 0, 0, 1);

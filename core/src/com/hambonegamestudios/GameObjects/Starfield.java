@@ -31,7 +31,6 @@ public class Starfield {
 
     public void render(SpriteBatch spriteBatch, float delta){
         for(Star star : stars) {
-            //System.out.println(star + "is being drawn at " + x + "," + y);
             star.draw(spriteBatch, delta);
         }
     }
