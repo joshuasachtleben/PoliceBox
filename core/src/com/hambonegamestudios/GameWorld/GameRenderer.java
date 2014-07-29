@@ -72,30 +72,32 @@ public class GameRenderer {
         worldTop = 0;
         worldBottom = myWorld.getHeight();
 
+        camera.viewportWidth = cameraWidth;
+        camera.viewportHeight = cameraHeight;
+        camera.zoom = cameraZoom;
+
         camera.position.set(tardis.getPosition().x + tardis.getWidth() / 2, tardis.getPosition().y + tardis.getHeight() / 2, 0);
 
         // Get Camera properties
-        cameraLeft = (int)(camera.position.x - cameraWidth/2);
-        cameraRight = (int)(camera.position.x + cameraWidth/2);
-        cameraTop = (int)(camera.position.y - cameraHeight/2);
-        cameraBottom = (int)(camera.position.y + cameraHeight/2);
+        cameraLeft = (int)(camera.position.x - (cameraWidth/2 * cameraZoom));
+        cameraRight = (int)(camera.position.x + (cameraWidth/2 * cameraZoom));
+        cameraTop = (int)(camera.position.y - (cameraHeight/2 * cameraZoom));
+        cameraBottom = (int)(camera.position.y + (cameraHeight/2 * cameraZoom));
 
         // Set camera properties
 
         if(cameraLeft <= worldLeft) {
-            camera.position.x = worldLeft + (cameraWidth / 2);
+            camera.position.x = worldLeft + ((cameraWidth / 2 * cameraZoom));
         } else if (cameraRight >= worldRight) {
-            camera.position.x = worldRight - (cameraWidth / 2);
+            camera.position.x = worldRight - ((cameraWidth / 2 * cameraZoom));
         }
         if (cameraTop <= worldTop) {
-            camera.position.y = worldTop + (cameraHeight / 2);
+            camera.position.y = worldTop + ((cameraHeight / 2 * cameraZoom));
         } else if (cameraBottom >= worldBottom) {
-            camera.position.y = worldBottom - (cameraHeight / 2);
+            camera.position.y = worldBottom - ((cameraHeight / 2 * cameraZoom));
         }
 
-        camera.viewportWidth = cameraWidth;
-        camera.viewportHeight = cameraHeight;
-        camera.zoom = cameraZoom;
+
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
@@ -126,7 +128,7 @@ public class GameRenderer {
                 "Camera Top: " + cameraTop + "\n" +
                 "Camera Bottom: " + cameraBottom
                 ,
-                (camera.position.x - (Gdx.graphics.getWidth() / 2)) * camera.zoom, (camera.position.y - (Gdx.graphics.getHeight() / 2)) * camera.zoom);
+                camera.position.x  - (Gdx.graphics.getWidth() / 2 * cameraZoom), camera.position.y - (Gdx.graphics.getHeight() / 2 * cameraZoom));
 
 
 

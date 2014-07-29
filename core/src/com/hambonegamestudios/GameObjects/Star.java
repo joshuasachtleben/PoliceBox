@@ -18,6 +18,7 @@ public class Star {
     private int x, y;
     private float alpha, duration;
     private int noFlicker;
+    private int color;
     private Random rand;
     private float elapsedTime;
     private boolean alphaIncrease = true;
@@ -30,6 +31,7 @@ public class Star {
         alpha = rand.nextInt(255) / 255.0f;
         duration = rand.nextInt(30);
         noFlicker = rand.nextInt(3); // one out of every x stars will not flicker.  need to set the number in the draw method to be checked upon each iteration
+        color = rand.nextInt(30);
         starTexture = new Texture(Gdx.files.internal("star.png"));
     }
 
@@ -57,7 +59,15 @@ public class Star {
             }
         }
         // This will set the color and alpha of the star textures.  RGB will produce white, but other colors (1,0,0 for red) can be generated.
-        spriteBatch.setColor(1, 1, 1, elapsedTime/duration); //alpha is a ratio of time elapsed and duration.  Example: 1 minute elapsed from a 2 minute duration is a 50% alpha ratio
+        if(color == 1) {
+            spriteBatch.setColor(120 / 255.0f, 120 / 255.0f, 0, elapsedTime / duration); //alpha is a ratio of time elapsed and duration.  Example: 1 minute elapsed from a 2 minute duration is a 50% alpha ratio
+        } else if(color == 2) {
+            spriteBatch.setColor(120 / 255.0f, 0, 0, elapsedTime / duration);
+        } else if (color == 3) {
+            spriteBatch.setColor(0, 0, 120 / 255.0f, elapsedTime / duration);
+        } else {
+            spriteBatch.setColor(1, 1, 1, elapsedTime / duration);
+        }
         spriteBatch.draw(starTexture, x, y);
         spriteBatch.setColor(1, 1, 1, 1);  //set color back to white with full opacity so other objects drawn won't flicker also
     }
