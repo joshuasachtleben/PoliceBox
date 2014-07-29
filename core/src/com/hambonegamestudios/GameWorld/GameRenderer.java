@@ -79,10 +79,10 @@ public class GameRenderer {
         camera.position.set(tardis.getPosition().x + tardis.getWidth() / 2, tardis.getPosition().y + tardis.getHeight() / 2, 0);
 
         // Get Camera properties
-        cameraLeft = (int)(camera.position.x - (cameraWidth/2 * cameraZoom));
-        cameraRight = (int)(camera.position.x + (cameraWidth/2 * cameraZoom));
-        cameraTop = (int)(camera.position.y - (cameraHeight/2 * cameraZoom));
-        cameraBottom = (int)(camera.position.y + (cameraHeight/2 * cameraZoom));
+        cameraLeft = (int)(camera.position.x - (cameraWidth/2 * camera.zoom));
+        cameraRight = (int)(camera.position.x + (cameraWidth/2 * camera.zoom));
+        cameraTop = (int)(camera.position.y - (cameraHeight/2 * camera.zoom));
+        cameraBottom = (int)(camera.position.y + (cameraHeight/2 * camera.zoom));
 
         // Set camera properties
 
@@ -116,17 +116,19 @@ public class GameRenderer {
 
         // Render the TARDIS
         batch.draw(AssetLoader.tardisAnimation.getKeyFrame(runTime), tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
+        font.setScale(camera.zoom, camera.zoom);
         font.drawMultiLine(batch,
                 "TARDIS Location\n" +
                 "X0: " + tardisPositionX0 + "\n" +
                 "X1: " + tardisPositionX1 + "\n" +
                 "Y0: " + tardisPositionY0 + "\n" +
                 "Y1: " + tardisPositionY1 + "\n" +
-                "Camera Position (x, y): " + camera.position.x + "," + camera.position.y + "\n" +
+                "Camera Position (x, y): " + (int)camera.position.x + "," + (int)camera.position.y + "\n" +
                 "Camera Left: " + cameraLeft + "\n" +
                 "Camera Right: " + cameraRight + "\n" +
                 "Camera Top: " + cameraTop + "\n" +
-                "Camera Bottom: " + cameraBottom
+                "Camera Bottom: " + cameraBottom + "\n" +
+                "Camera Zoom: " + camera.zoom + " (float), " + (int)camera.zoom + " (int)"
                 ,
                 camera.position.x  - (Gdx.graphics.getWidth() / 2 * cameraZoom), camera.position.y - (Gdx.graphics.getHeight() / 2 * cameraZoom));
 
@@ -149,8 +151,11 @@ public class GameRenderer {
     }
 
     public void setCameraZoom(float zoomAmount) {
-        if(cameraZoom + zoomAmount > .10f && cameraZoom + zoomAmount < 1.0f) {
+        if(cameraZoom + zoomAmount >= .10f && cameraZoom + zoomAmount <= 1.0f) {
             cameraZoom += zoomAmount;
+            if(cameraZoom > 1.0f) cameraZoom = 1.0f; //limit to 1.0f zoom max
+            if(cameraZoom < .10f) cameraZoom = .10f; //limit to .01f zoom min
         }
+
     }
 }
