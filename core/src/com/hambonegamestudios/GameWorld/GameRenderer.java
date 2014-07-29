@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hambonegamestudios.GameHelpers.AssetLoader;
-import com.hambonegamestudios.GameObjects.Star;
 import com.hambonegamestudios.GameObjects.Starfield;
 import com.hambonegamestudios.GameObjects.TARDIS;
 
@@ -26,6 +25,8 @@ public class GameRenderer {
     private Starfield starfield;
     private TARDIS tardis;
     private int tardisWidth, tardisHeight, tardisPositionX0, tardisPositionX1, tardisPositionY0, tardisPositionY1;
+    private int worldLeft, worldRight, worldTop, worldBottom;
+    private int cameraLeft, cameraRight, cameraTop, cameraBottom;
     private BitmapFont font;
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
@@ -57,8 +58,41 @@ public class GameRenderer {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Set camera properties
+        // Get TARDIS properties
+        tardisWidth = tardis.getWidth();
+        tardisHeight = tardis.getHeight();
+        tardisPositionX0 = (int)tardis.getPosition().x;
+        tardisPositionX1 = tardisPositionX0 + tardisWidth;
+        tardisPositionY0 = (int)tardis.getPosition().y;
+        tardisPositionY1 = tardisPositionY0 + tardisHeight;
+
+        // Get World properties
+        worldLeft = 0;
+        worldRight = myWorld.getWidth();
+        worldTop = 0;
+        worldBottom = myWorld.getHeight();
+
         camera.position.set(tardis.getPosition().x + tardis.getWidth() / 2, tardis.getPosition().y + tardis.getHeight() / 2, 0);
+
+        // Get Camera properties
+        cameraLeft = (int)(camera.position.x - cameraWidth/2);
+        cameraRight = (int)(camera.position.x + cameraWidth/2);
+        cameraTop = (int)(camera.position.y - cameraHeight/2);
+        cameraBottom = (int)(camera.position.y + cameraHeight/2);
+
+        // Set camera properties
+
+        if(cameraLeft <= worldLeft) {
+            camera.position.x = worldLeft + (cameraWidth / 2);
+        } else if (cameraRight >= worldRight) {
+            camera.position.x = worldRight - (cameraWidth / 2);
+        }
+        if (cameraTop <= worldTop) {
+            camera.position.y = worldTop + (cameraHeight / 2);
+        } else if (cameraBottom >= worldBottom) {
+            camera.position.y = worldBottom - (cameraHeight / 2);
+        }
+
         camera.viewportWidth = cameraWidth;
         camera.viewportHeight = cameraHeight;
         camera.zoom = cameraZoom;
@@ -78,14 +112,6 @@ public class GameRenderer {
 //            }
 //        }
 
-        // Get TARDIS properties
-        tardisWidth = tardis.getWidth();
-        tardisHeight = tardis.getHeight();
-        tardisPositionX0 = (int)tardis.getPosition().x;
-        tardisPositionX1 = tardisPositionX0 + tardisWidth;
-        tardisPositionY0 = (int)tardis.getPosition().y;
-        tardisPositionY1 = tardisPositionY0 + tardisHeight;
-
         // Render the TARDIS
         batch.draw(AssetLoader.tardisAnimation.getKeyFrame(runTime), tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
         font.drawMultiLine(batch,
@@ -93,8 +119,14 @@ public class GameRenderer {
                 "X0: " + tardisPositionX0 + "\n" +
                 "X1: " + tardisPositionX1 + "\n" +
                 "Y0: " + tardisPositionY0 + "\n" +
-                "Y1: " + tardisPositionY1,
-                camera.position.x - (cameraWidth / 2), camera.position.y - (cameraHeight / 2));
+                "Y1: " + tardisPositionY1 + "\n" +
+                "Camera Position (x, y): " + camera.position.x + "," + camera.position.y + "\n" +
+                "Camera Left: " + cameraLeft + "\n" +
+                "Camera Right: " + cameraRight + "\n" +
+                "Camera Top: " + cameraTop + "\n" +
+                "Camera Bottom: " + cameraBottom
+                ,
+                (camera.position.x - (Gdx.graphics.getWidth() / 2)) * camera.zoom, (camera.position.y - (Gdx.graphics.getHeight() / 2)) * camera.zoom);
 
 
 
