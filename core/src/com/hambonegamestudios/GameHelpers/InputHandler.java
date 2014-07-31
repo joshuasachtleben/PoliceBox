@@ -41,10 +41,10 @@ public class InputHandler implements InputProcessor{
                 tardis.setMoveRight(true);
                 break;
             case Input.Keys.LEFT_BRACKET:
-                renderer.setCameraZoom(-.03f);
+                renderer.setCameraZoom(-1f);
                 break;
             case Input.Keys.RIGHT_BRACKET:
-                renderer.setCameraZoom(.03f);
+                renderer.setCameraZoom(1f);
                 break;
             case Input.Keys.F11:
                 Gdx.graphics.setDisplayMode(1920, 1080, true);
