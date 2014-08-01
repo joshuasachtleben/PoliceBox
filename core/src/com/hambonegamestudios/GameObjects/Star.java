@@ -3,6 +3,7 @@ package com.hambonegamestudios.GameObjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.hambonegamestudios.GameHelpers.AssetLoader;
 
 import java.util.Random;
 
@@ -32,7 +33,6 @@ public class Star {
         duration = rand.nextInt(30);
         noFlicker = rand.nextInt(3); // one out of every x stars will not flicker.  need to set the number in the draw method to be checked upon each iteration
         color = rand.nextInt(30);
-        starTexture = new Texture(Gdx.files.internal("star.png"));
     }
 
     public void draw(SpriteBatch spriteBatch, float delta) {
@@ -68,7 +68,7 @@ public class Star {
         } else {
             spriteBatch.setColor(1, 1, 1, elapsedTime / duration);
         }
-        spriteBatch.draw(starTexture, x, y);
+        spriteBatch.draw(AssetLoader.starTexture, x, y);
         spriteBatch.setColor(1, 1, 1, 1);  //set color back to white with full opacity so other objects drawn won't flicker also
     }
 }

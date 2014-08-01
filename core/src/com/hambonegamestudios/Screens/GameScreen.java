@@ -41,6 +41,7 @@ public class GameScreen implements Screen{
     @Override
     public void resize(int width, int height) {
         System.out.println("GameScreen - resize() called");
+        renderer.resize(width, height);
     }
 
     @Override
@@ -66,5 +67,6 @@ public class GameScreen implements Screen{
     @Override
     public void dispose() {
         System.out.println("GameScreen - dispose() called");
+        renderer.dispose();
     }
 }

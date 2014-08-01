@@ -8,8 +8,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hambonegamestudios.GameHelpers.AssetLoader;
+import com.hambonegamestudios.GameObjects.Meteoroid;
 import com.hambonegamestudios.GameObjects.Starfield;
 import com.hambonegamestudios.GameObjects.TARDIS;
+
+import java.util.ArrayList;
 
 /**
  * Created by: Joshua Sachtleben
@@ -23,6 +26,7 @@ public class GameRenderer {
     private OrthographicCamera camera;
     private int cameraWidth, cameraHeight;
     private Starfield starfield;
+    private ArrayList<Meteoroid> meteoroids;
     private TARDIS tardis;
     private int tardisWidth, tardisHeight, tardisPositionX0, tardisPositionX1, tardisPositionY0, tardisPositionY1;
     private int worldLeft, worldRight, worldTop, worldBottom;
@@ -74,7 +78,7 @@ public class GameRenderer {
 
         camera.viewportWidth = cameraWidth;
         camera.viewportHeight = cameraHeight;
-//        camera.zoom = cameraZoom;?
+        camera.zoom = cameraZoom;
 
         camera.position.set(tardis.getPosition().x + tardis.getWidth() / 2, tardis.getPosition().y + tardis.getHeight() / 2, 0);
 
@@ -132,8 +136,14 @@ public class GameRenderer {
                 ,
                 camera.position.x - (Gdx.graphics.getWidth() / 2 * cameraZoom), camera.position.y - (Gdx.graphics.getHeight() / 2 * cameraZoom));
 
+        // Render the meteoroids
+        for (Meteoroid meteroid : meteoroids){
+            meteroid.render(batch);
+        }
 
         batch.end();
+
+
 
         // Draw center crosshair for debugging
 //        shapeRenderer.begin(ShapeType.Line);
@@ -144,8 +154,17 @@ public class GameRenderer {
 //        shapeRenderer.end();
     }
 
+    public void resize(int width, int height){
+        cameraWidth = width;
+        cameraHeight = height;
+    }
+
     public void initGameObjects() {
-        starfield = new Starfield(myWorld.getWidth(), myWorld.getHeight(), 1000);
+        starfield = new Starfield(myWorld.getWidth(), myWorld.getHeight(), 20000);
+        meteoroids = new ArrayList<Meteoroid>();
+        for(int i = 0; i < 100; i++) {
+            meteoroids.add(new Meteoroid(myWorld.getWidth(), myWorld.getHeight()));
+        }
         tardis = myWorld.getTardis();
     }
 
@@ -153,12 +172,10 @@ public class GameRenderer {
         cameraZoom += zoomAmount * Gdx.graphics.getDeltaTime();
         if (cameraZoom > 1.0f) cameraZoom = 1.0f; //limit to 1.0f zoom max
         if (cameraZoom < .10f) cameraZoom = .10f; //limit to .01f zoom min
-        camera.zoom = cameraZoom;
-        camera.update();
-
     }
 
     public void dispose() {
         batch.dispose();
+        AssetLoader.dispose();
     }
 }
