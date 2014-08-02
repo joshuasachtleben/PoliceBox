@@ -107,16 +107,8 @@ public class GameRenderer {
 
         batch.begin();
 
-        // Render a test starfield
+        // Render a starfield
         starfield.render(batch, delta);
-
-        // Draw background tiles
-//        for (int y = -1; y < myWorld.getHeight() / 32 + 1; y ++) {
-//            for (int x = -1; x < myWorld.getWidth() / 32 + 1; x++) {
-//                //batch.draw(AssetLoader.starsAnimation.getKeyFrame(runTime), x * AssetLoader.backgroundTexture.getWidth(), y * AssetLoader.backgroundTexture.getHeight(), 0, 0, AssetLoader.backgroundTexture.getWidth(), AssetLoader.backgroundTexture.getHeight());
-//                batch.draw(AssetLoader.starsAnimation.getKeyFrame(runTime), x * 32, y * 32, 32, 32);
-//            }
-//        }
 
         // Render the TARDIS
         batch.draw(AssetLoader.tardisAnimation.getKeyFrame(runTime), tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
@@ -142,8 +134,6 @@ public class GameRenderer {
         }
 
         batch.end();
-
-
 
         // Draw center crosshair for debugging
 //        shapeRenderer.begin(ShapeType.Line);
