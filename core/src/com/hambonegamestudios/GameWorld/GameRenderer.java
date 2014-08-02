@@ -33,7 +33,6 @@ public class GameRenderer {
     private int cameraLeft, cameraRight, cameraTop, cameraBottom;
     private BitmapFont font;
     private SpriteBatch batch;
-    private ShapeRenderer shapeRenderer;
     private float cameraZoom;
 
     public GameRenderer(GameWorld world) {
@@ -49,7 +48,6 @@ public class GameRenderer {
         camera.setToOrtho(true, cameraWidth, cameraHeight);
         System.out.println("Orthographic Camera created with dimensions " + cameraWidth + " x " + cameraHeight);
         batch = new SpriteBatch();
-        shapeRenderer = new ShapeRenderer();
         batch.setProjectionMatrix(camera.combined);
 
         initGameObjects();
@@ -129,8 +127,8 @@ public class GameRenderer {
                 camera.position.x - (Gdx.graphics.getWidth() / 2 * cameraZoom), camera.position.y - (Gdx.graphics.getHeight() / 2 * cameraZoom));
 
         // Render the meteoroids
-        for (Meteoroid meteroid : meteoroids){
-            meteroid.render(batch);
+        for (Meteoroid meteoroid : meteoroids){
+            meteoroid.render(batch, delta);
         }
 
         batch.end();
