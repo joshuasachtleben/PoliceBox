@@ -1,12 +1,10 @@
 package com.hambonegamestudios.GameObjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.hambonegamestudios.GameHelpers.AssetLoader;
-
 import java.util.Random;
 
 /**
@@ -16,31 +14,43 @@ import java.util.Random;
  * Project:    PoliceBox
  */
 public class Meteoroid {
-    private int x, y;
+    private float x, y, width, height;
     private Vector2 position;
     private Vector2 velocity;
     private Vector2 acceleration;
     private float rotation;
     private Sprite meteoroid;
+    private ShapeRenderer renderer;
 
-    public Meteoroid(int width, int height) {
+    public Meteoroid(int worldWidth, int worldHeight) {
         Random random = new Random();
-        x = random.nextInt(width);
-        y = random.nextInt(height);
-        rotation = random.nextInt(30);
+        x = random.nextInt(worldWidth);
+        y = random.nextInt(worldHeight);
+        rotation = random.nextInt(1000);
         meteoroid = new Sprite(AssetLoader.meteoroid_small);
-        // Move origin to center of sprite
-        meteoroid.setOrigin(meteoroid.getWidth()/2, meteoroid.getHeight()/2);
-        // rotate sprite clockwise or anticlockwise
-        meteoroid.rotate90(random.nextBoolean());
         // set scale of sprite
-        meteoroid.setScale(3, 3);
+        meteoroid.setScale(2, 2);
+        width = meteoroid.getWidth();
+        height = meteoroid.getHeight();
         System.out.println("Meteoroid - X: " + x + ", Y: " + y);
+
+        renderer = new ShapeRenderer();
     }
 
     public void render(SpriteBatch batch, float delta) {
-        meteoroid.rotate(rotation * delta);
-        meteoroid.setPosition(x, y);
+
         meteoroid.draw(batch);
+    }
+
+    public void update(float delta) {
+        meteoroid.setPosition(x, y);
+        meteoroid.rotate(rotation * delta);
+    }
+
+    public void checkCollision(float x, float y, int width, int height) {
+        if (this.x + this.width >= x && x + width >= this.x &&
+        this.y + this.height >= y && y + height >= this.y) {
+            System.out.println("Meteoroid collision detected.");
+        }
     }
 }

@@ -26,7 +26,6 @@ public class GameRenderer {
     private OrthographicCamera camera;
     private int cameraWidth, cameraHeight;
     private Starfield starfield;
-    private ArrayList<Meteoroid> meteoroids;
     private TARDIS tardis;
     private int tardisWidth, tardisHeight, tardisPositionX0, tardisPositionX1, tardisPositionY0, tardisPositionY1;
     private int worldLeft, worldRight, worldTop, worldBottom;
@@ -127,7 +126,7 @@ public class GameRenderer {
                 camera.position.x - (Gdx.graphics.getWidth() / 2 * cameraZoom), camera.position.y - (Gdx.graphics.getHeight() / 2 * cameraZoom));
 
         // Render the meteoroids
-        for (Meteoroid meteoroid : meteoroids){
+        for (Meteoroid meteoroid : myWorld.getMeteoroids()){
             meteoroid.render(batch, delta);
         }
 
@@ -149,10 +148,7 @@ public class GameRenderer {
 
     public void initGameObjects() {
         starfield = new Starfield(myWorld.getWidth(), myWorld.getHeight(), 20000);
-        meteoroids = new ArrayList<Meteoroid>();
-        for(int i = 0; i < 100; i++) {
-            meteoroids.add(new Meteoroid(myWorld.getWidth(), myWorld.getHeight()));
-        }
+
         tardis = myWorld.getTardis();
     }
 

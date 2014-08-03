@@ -35,8 +35,7 @@ public class AssetLoader {
         //meteoroidTexture = new Texture(Gdx.files.internal("meteoroid_32x32.png"));
         //meteoroidTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         meteoroidTexture = new Texture(Gdx.files.internal("meteoroids.png"));
-        meteoroid_small = new TextureRegion(meteoroidTexture, 8, 8, 23, 23);
-        meteoroid_small.flip(false, true);
+        meteoroid_small = new TextureRegion(meteoroidTexture, 8, 8, 16, 16);
 
         /*
             Load Bounding Box texture
