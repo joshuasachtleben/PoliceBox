@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 public class GameWorld {
 
-    private int width = 2048;
-    private int height = 2048;
+    private int width = Gdx.graphics.getWidth(); //2048;
+    private int height = Gdx.graphics.getHeight(); //2048;
     private TARDIS tardis;
     private ArrayList<Meteoroid> meteoroids;
 
@@ -23,7 +23,7 @@ public class GameWorld {
         tardis = new TARDIS(width/2, height/2, 32, 32);
         meteoroids = new ArrayList<Meteoroid>();
         for(int i = 0; i < 100; i++) {
-            meteoroids.add(new Meteoroid(this.getWidth(), this.getHeight()));
+            meteoroids.add(new Meteoroid(this.getWidth(), this.getHeight(), false));
         }
     }
 
@@ -32,11 +32,12 @@ public class GameWorld {
         tardis.update(delta, width, height);
         for (int i = 0; i < meteoroids.size(); i++) {
             meteoroids.get(i).update(delta, width, height);
-            meteoroids.get(i).checkCollision(tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
+            meteoroids.get(i).checkPlayerCollision(tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
             if(meteoroids.get(i).checkBorderCollision()) {
                 meteoroids.remove(i);
-                meteoroids.add(new Meteoroid(this.getWidth(), this.getHeight()));
+                meteoroids.add(new Meteoroid(this.getWidth(), this.getHeight(), true));
             }
+            meteoroids.get(i).checkMeteoroidCollision(meteoroids);
             //System.out.println("Number of meteoroids: " + meteoroids.size());
         }
     }

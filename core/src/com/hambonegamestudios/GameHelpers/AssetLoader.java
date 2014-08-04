@@ -18,6 +18,7 @@ public class AssetLoader {
     public static Texture boundingBoxTexture;
     public static Texture meteoroidTexture;
     public static TextureRegion meteoroid_small;
+    public static TextureRegion meteorioid_medium;
     public static TextureRegion tardis_0, tardis_1, tardis_2, tardis_3, tardis_4, tardis_5, tardis_6, tardis_7, tardis_8, tardis_9, tardis_10, tardis_11, tardis_12;
     public static Animation tardisAnimation;
 
@@ -36,6 +37,7 @@ public class AssetLoader {
         //meteoroidTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         meteoroidTexture = new Texture(Gdx.files.internal("meteoroids.png"));
         meteoroid_small = new TextureRegion(meteoroidTexture, 8, 8, 16, 16);
+        meteorioid_medium = new TextureRegion(meteoroidTexture, 8, 8, 8, 8);
 
         /*
             Load Bounding Box texture
