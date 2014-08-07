@@ -33,6 +33,9 @@ public class GameRenderer {
     private BitmapFont font;
     private SpriteBatch batch;
     private float cameraZoom;
+    private boolean debug = false;
+
+    private ShapeRenderer renderer;
 
     public GameRenderer(GameWorld world) {
         myWorld = world;
@@ -48,6 +51,8 @@ public class GameRenderer {
         System.out.println("Orthographic Camera created with dimensions " + cameraWidth + " x " + cameraHeight);
         batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
+        renderer = new ShapeRenderer();
+        renderer.setProjectionMatrix(camera.combined);
 
         initGameObjects();
     }
@@ -126,11 +131,21 @@ public class GameRenderer {
                 camera.position.x - (Gdx.graphics.getWidth() / 2 * cameraZoom), camera.position.y - (Gdx.graphics.getHeight() / 2 * cameraZoom));
 
         // Render the meteoroids
-        for (Meteoroid meteoroid : myWorld.getMeteoroids()){
+        for (Meteoroid meteoroid : myWorld.getMeteoroids()) {
             meteoroid.render(batch, delta);
         }
 
         batch.end();
+
+        if (debug) {
+            renderer.begin(ShapeRenderer.ShapeType.Line);
+            renderer.setColor(1, 0, 0, 1);
+            renderer.rect(tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
+            for (Meteoroid meteoroid : myWorld.getMeteoroids()) {
+                renderer.rect(meteoroid.getPosition().x, meteoroid.getPosition().y, meteoroid.getWidth(), meteoroid.getHeight());
+            }
+            renderer.end();
+        }
 
         // Draw center crosshair for debugging
 //        shapeRenderer.begin(ShapeType.Line);
@@ -141,7 +156,7 @@ public class GameRenderer {
 //        shapeRenderer.end();
     }
 
-    public void resize(int width, int height){
+    public void resize(int width, int height) {
         cameraWidth = width;
         cameraHeight = height;
     }
@@ -158,8 +173,17 @@ public class GameRenderer {
         if (cameraZoom < .10f) cameraZoom = .10f; //limit to .01f zoom min
     }
 
+    public void toggleDebug() {
+        if (debug) {
+            debug = false;
+        } else {
+            debug = true;
+        }
+    }
+
     public void dispose() {
         batch.dispose();
+        renderer.dispose();
         AssetLoader.dispose();
     }
 }

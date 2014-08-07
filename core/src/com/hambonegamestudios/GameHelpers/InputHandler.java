@@ -49,6 +49,8 @@ public class InputHandler implements InputProcessor{
             case Input.Keys.F11:
                 Gdx.graphics.setDisplayMode(1920, 1080, true);
                 break;
+            case Input.Keys.F4:
+                renderer.toggleDebug();
             default:
                 return false;
         }
