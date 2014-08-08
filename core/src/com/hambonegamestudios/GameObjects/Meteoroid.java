@@ -99,7 +99,7 @@ public class Meteoroid {
     }
 
     public void checkMeteoroidCollision(ArrayList<Meteoroid> otherMeteoroids, float delta) {
-        for (int i = 0; i < otherMeteoroids.size(); i++) {
+        for (Meteoroid otherMeteoroid : otherMeteoroids) {
 //            if (otherMeteoroids.get(i) != this &&
 //                    this.position.x + this.width >= otherMeteoroids.get(i).position.x && otherMeteoroids.get(i).position.x + otherMeteoroids.get(i).width >= this.position.x &&
 //                    this.position.y + this.height >= otherMeteoroids.get(i).position.y && otherMeteoroids.get(i).position.y + otherMeteoroids.get(i).height >= this.position.y) {
@@ -108,10 +108,43 @@ public class Meteoroid {
 //                otherMeteoroids.get(i).velocity.x *= -1;
 //                System.out.println("Meteoroid collided with another meteoroid!");
 //            }
-            // Check left collision
-            if(otherMeteoroids.get(i) != this && this.getPosition().x + this.getWidth() + (this.getVelocity().x * delta) >= otherMeteoroids.get(i).getPosition().x + (otherMeteoroids.get(i).getVelocity().x * delta)) {
-                this.setVelocity(this.getVelocity().x * -1, this.getVelocity().y);
-                System.out.println("Collision on left side at :" + this.position.x);
+
+            if(otherMeteoroid != this &&
+                    // Check left collision
+                    otherMeteoroid.getPosition().x + otherMeteoroid.getWidth() >= this.getPosition().x &&
+                    // Check right collision
+                    otherMeteoroid.getPosition().x <= this.getPosition().x + this.getWidth() &&
+                    // Check top collision
+                    otherMeteoroid.getPosition().y + otherMeteoroid.getHeight() >= this.getPosition().y &&
+                    // Check bottom collision
+                    otherMeteoroid.getPosition().y <= this.getPosition().y + this.getHeight()
+                    ) {
+                System.out.println("Collision detected.");
+                if(otherMeteoroid.getPosition().x + (otherMeteoroid.getWidth()/ 2) < this.getPosition().x + (this.getWidth() / 2) && //middleX of the other meteoroid is less than middle of this one
+                        otherMeteoroid.getPosition().y + (otherMeteoroid.getHeight() / 2)  >= this.getPosition().y &&  // middleY of other meteoroid is higher than the top of this meteor
+                        otherMeteoroid.getPosition().y + (otherMeteoroid.getHeight() / 2)  <= this.getPosition().y + this.getHeight()) { // middleY of other meteoroid is lower than bottom of this meteor
+                    System.out.println("Collision happened on the left.");
+                    this.position.x = otherMeteoroid.position.x + otherMeteoroid.getWidth() + 2;
+                    otherMeteoroid.setVelocity(otherMeteoroid.getVelocity().x * -1, otherMeteoroid.getVelocity().y);
+                } else if (otherMeteoroid.getPosition().x + (otherMeteoroid.getWidth() / 2) > this.getPosition().x + (this.getWidth() / 2) &&
+                        otherMeteoroid.getPosition().y + (otherMeteoroid.getHeight() / 2)  >= this.getPosition().y &&
+                        otherMeteoroid.getPosition().y + (otherMeteoroid.getHeight() / 2)  <= this.getPosition().y + this.getHeight()) {
+                    System.out.println("Collision happened on the right.");
+                    this.position.x = otherMeteoroid.position.x - this.getWidth() - 2;
+                    otherMeteoroid.setVelocity(otherMeteoroid.getVelocity().x * -1, otherMeteoroid.getVelocity().y);
+                } else if (otherMeteoroid.getPosition().y + (otherMeteoroid.getHeight() / 2) < this.getPosition().x + (this.getHeight() / 2) &&
+                        otherMeteoroid.getPosition().x + (otherMeteoroid.getWidth() / 2) >= this.getPosition().x &&
+                        otherMeteoroid.getPosition().x + (otherMeteoroid.getWidth() / 2) <= this.getPosition().x + this.getWidth()) {
+                    System.out.println("Collision happened on the top.");
+                    this.position.y = otherMeteoroid.getPosition().y + otherMeteoroid.getHeight() + 2;
+                    otherMeteoroid.setVelocity(otherMeteoroid.getVelocity().x, otherMeteoroid.getVelocity().y * -1);
+                } else if (otherMeteoroid.getPosition().y + (otherMeteoroid.getHeight() / 2) > this.getPosition().x + (this.getHeight() / 2) &&
+                        otherMeteoroid.getPosition().x + (otherMeteoroid.getWidth() / 2) >= this.getPosition().x &&
+                        otherMeteoroid.getPosition().x + (otherMeteoroid.getWidth() / 2) <= this.getPosition().x + this.getWidth()) {
+                    System.out.println("Collision happened on the bottom.");
+                    this.position.y = otherMeteoroid.getPosition().y - this.getHeight() - 2;
+                    otherMeteoroid.setVelocity(otherMeteoroid.getVelocity().x, otherMeteoroid.getVelocity().y * -1);
+                }
             }
         }
     }
@@ -128,7 +161,7 @@ public class Meteoroid {
         return position;
     }
 
-    public float getWidth() {g
+    public float getWidth() {
         return width;
     }
 

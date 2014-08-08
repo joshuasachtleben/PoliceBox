@@ -22,7 +22,7 @@ public class GameWorld {
     public GameWorld() {
         tardis = new TARDIS(width/2, height/2, 32, 32);
         meteoroids = new ArrayList<Meteoroid>();
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 2; i++) {
             meteoroids.add(new Meteoroid(this.getWidth(), this.getHeight(), false));
         }
     }

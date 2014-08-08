@@ -4,8 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.hambonegamestudios.GameObjects.Meteoroid;
 import com.hambonegamestudios.GameObjects.TARDIS;
 import com.hambonegamestudios.GameWorld.GameRenderer;
+
+import java.util.ArrayList;
 
 /**
  * Created by: Joshua Sachtleben
@@ -17,13 +20,13 @@ public class InputHandler implements InputProcessor{
 
     private TARDIS tardis;
     private GameRenderer renderer;
+    private ArrayList<Meteoroid> meteoroids;
 
-    public InputHandler(TARDIS tardis, GameRenderer renderer) {
+    public InputHandler(TARDIS tardis, ArrayList<Meteoroid> meteoroids, GameRenderer renderer) {
         this.tardis = tardis;
+        this.meteoroids = meteoroids;
         this.renderer = renderer;
     }
-
-
 
     @Override
     public boolean keyDown(int keycode) {
@@ -89,6 +92,7 @@ public class InputHandler implements InputProcessor{
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         tardis.onClick();
+        meteoroids.add(new Meteoroid(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(), true));
         return false;
     }
 

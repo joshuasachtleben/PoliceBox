@@ -162,7 +162,7 @@ public class GameRenderer {
     }
 
     public void initGameObjects() {
-        starfield = new Starfield(myWorld.getWidth(), myWorld.getHeight(), 20000);
+        starfield = new Starfield(myWorld.getWidth(), myWorld.getHeight(), 2000);
 
         tardis = myWorld.getTardis();
     }
