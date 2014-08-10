@@ -114,27 +114,27 @@ public class GameRenderer {
 
         // Render the TARDIS
         batch.draw(AssetLoader.tardisAnimation.getKeyFrame(runTime), tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
-        font.setScale(cameraWidth / cameraZoom, cameraHeight / cameraZoom);
-        font.drawMultiLine(batch,
-                "TARDIS Location\n" +
-                        "X0: " + tardisPositionX0 + "\n" +
-                        "X1: " + tardisPositionX1 + "\n" +
-                        "Y0: " + tardisPositionY0 + "\n" +
-                        "Y1: " + tardisPositionY1 + "\n" +
-                        "Camera Position (x, y): " + (int) camera.position.x + "," + (int) camera.position.y + "\n" +
-                        "Camera Left: " + cameraLeft + "\n" +
-                        "Camera Right: " + cameraRight + "\n" +
-                        "Camera Top: " + cameraTop + "\n" +
-                        "Camera Bottom: " + cameraBottom + "\n" +
-                        "Camera Zoom: " + camera.zoom + " (float), " + (int) camera.zoom + " (int)"
-                ,
-                camera.position.x - (Gdx.graphics.getWidth() / 2 * cameraZoom), camera.position.y - (Gdx.graphics.getHeight() / 2 * cameraZoom));
+        if(debug) {
+            font.drawMultiLine(batch,
+                    "TARDIS Location\n" +
+                            "X0: " + tardisPositionX0 + "\n" +
+                            "X1: " + tardisPositionX1 + "\n" +
+                            "Y0: " + tardisPositionY0 + "\n" +
+                            "Y1: " + tardisPositionY1 + "\n" +
+                            "Camera Position (x, y): " + (int) camera.position.x + "," + (int) camera.position.y + "\n" +
+                            "Camera Left: " + cameraLeft + "\n" +
+                            "Camera Right: " + cameraRight + "\n" +
+                            "Camera Top: " + cameraTop + "\n" +
+                            "Camera Bottom: " + cameraBottom + "\n" +
+                            "Camera Zoom: " + camera.zoom + " (float), " + (int) camera.zoom + " (int)"
+                    ,
+                    camera.position.x - (Gdx.graphics.getWidth() / 2 * cameraZoom), camera.position.y - (Gdx.graphics.getHeight() / 2 * cameraZoom));
+        }
 
         // Render the meteoroids
         for (Meteoroid meteoroid : myWorld.getMeteoroids()) {
             meteoroid.render(batch, delta);
         }
-
         batch.end();
 
         if (debug) {
@@ -183,6 +183,7 @@ public class GameRenderer {
 
     public void dispose() {
         batch.dispose();
+        font.dispose();
         renderer.dispose();
         AssetLoader.dispose();
     }

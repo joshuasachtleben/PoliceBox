@@ -36,8 +36,8 @@ public class GameWorld {
                 meteoroids.remove(i);
                 meteoroids.add(new Meteoroid(this.getWidth(), this.getHeight(), true));
             }
-            meteoroids.get(i).update(delta, width, height);
             meteoroids.get(i).checkMeteoroidCollision(meteoroids, delta);
+            meteoroids.get(i).update(delta, width, height);
 
             //System.out.println("Number of meteoroids: " + meteoroids.size());
         }
