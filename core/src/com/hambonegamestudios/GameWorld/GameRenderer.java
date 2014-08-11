@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class GameRenderer {
 
     private GameWorld myWorld;
-    private OrthographicCamera camera;
+    private OrthographicCamera camera, HUDcamera;
     private int cameraWidth, cameraHeight;
     private Starfield starfield;
     private TARDIS tardis;
@@ -31,7 +31,7 @@ public class GameRenderer {
     private int worldLeft, worldRight, worldTop, worldBottom;
     private int cameraLeft, cameraRight, cameraTop, cameraBottom;
     private BitmapFont font;
-    private SpriteBatch batch;
+    private SpriteBatch batch, HUDbatch;
     private float cameraZoom;
     private boolean debug = false;
 
@@ -45,12 +45,16 @@ public class GameRenderer {
         font.setColor(Color.WHITE);
 
         camera = new OrthographicCamera();
+        HUDcamera = new OrthographicCamera();
         cameraZoom = 1.0f;
         // may be able to divide width and height by 2 (or more) to scale objects when drawn
         camera.setToOrtho(true, cameraWidth, cameraHeight);
+        HUDcamera.setToOrtho(true, cameraWidth, cameraHeight);
         System.out.println("Orthographic Camera created with dimensions " + cameraWidth + " x " + cameraHeight);
         batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
+        HUDbatch = new SpriteBatch();
+        HUDbatch.setProjectionMatrix(HUDcamera.combined);
         renderer = new ShapeRenderer();
         renderer.setProjectionMatrix(camera.combined);
 
@@ -137,6 +141,13 @@ public class GameRenderer {
             meteoroid.render(batch, delta);
         }
         batch.end();
+
+        /* Draw HUD elements */
+
+        HUDbatch.begin();
+        font.setColor(1, 1, 1, 1);
+        font.draw(HUDbatch, "Score: " + , 0, 0);
+        HUDbatch.end();
 
         if (debug) {
             renderer.begin(ShapeRenderer.ShapeType.Line);
