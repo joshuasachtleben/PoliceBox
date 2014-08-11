@@ -19,6 +19,7 @@ public class GameWorld {
     private int height = 2048;
     private TARDIS tardis;
     private ArrayList<Meteoroid> meteoroids;
+    private int score;
 
     public GameWorld() {
         tardis = new TARDIS(width/2, height/2, AssetLoader.tardis_0.getRegionWidth(), AssetLoader.tardis_0.getRegionHeight());
@@ -26,6 +27,7 @@ public class GameWorld {
         for(int i = 0; i < 200; i++) {
             meteoroids.add(new Meteoroid(this.getWidth(), this.getHeight(), false));
         }
+        score = 0;
     }
 
     public void update(float delta) {
@@ -43,6 +45,7 @@ public class GameWorld {
             //System.out.println("Number of meteoroids: " + meteoroids.size());
         }
         tardis.update(delta, width, height);
+        score += 100;
     }
 
     public TARDIS getTardis(){
@@ -60,4 +63,6 @@ public class GameWorld {
     public int getHeight(){
         return height;
     }
+
+    public int getScore() { return score; }
 }
