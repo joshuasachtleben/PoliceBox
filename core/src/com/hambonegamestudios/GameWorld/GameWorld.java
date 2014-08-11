@@ -1,6 +1,7 @@
 package com.hambonegamestudios.GameWorld;
 
 import com.badlogic.gdx.Gdx;
+import com.hambonegamestudios.GameHelpers.AssetLoader;
 import com.hambonegamestudios.GameObjects.Meteoroid;
 import com.hambonegamestudios.GameObjects.TARDIS;
 
@@ -14,13 +15,13 @@ import java.util.ArrayList;
  */
 public class GameWorld {
 
-    private int width = Gdx.graphics.getWidth(); //2048;
-    private int height = Gdx.graphics.getHeight(); //2048;
+    private int width = 2048;
+    private int height = 2048;
     private TARDIS tardis;
     private ArrayList<Meteoroid> meteoroids;
 
     public GameWorld() {
-        tardis = new TARDIS(width/2, height/2, 32, 32);
+        tardis = new TARDIS(width/2, height/2, AssetLoader.tardis_0.getRegionWidth(), AssetLoader.tardis_0.getRegionHeight());
         meteoroids = new ArrayList<Meteoroid>();
         for(int i = 0; i < 200; i++) {
             meteoroids.add(new Meteoroid(this.getWidth(), this.getHeight(), false));

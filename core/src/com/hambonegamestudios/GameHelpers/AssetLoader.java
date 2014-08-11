@@ -17,8 +17,7 @@ public class AssetLoader {
     public static Texture TARDIStexture;
     public static Texture boundingBoxTexture;
     public static Texture meteoroidTexture;
-    public static TextureRegion meteoroid_small;
-    public static TextureRegion meteorioid_medium;
+    public static TextureRegion meteoroid_1, meteoroid_2, meteoroid_3, meteoroid_4, meteoroid_5;
     public static TextureRegion tardis_0, tardis_1, tardis_2, tardis_3, tardis_4, tardis_5, tardis_6, tardis_7, tardis_8, tardis_9, tardis_10, tardis_11, tardis_12;
     public static Animation tardisAnimation;
 
@@ -36,8 +35,11 @@ public class AssetLoader {
         //meteoroidTexture = new Texture(Gdx.files.internal("meteoroid_32x32.png"));
         //meteoroidTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         meteoroidTexture = new Texture(Gdx.files.internal("meteoroids.png"));
-        meteoroid_small = new TextureRegion(meteoroidTexture, 8, 8, 16, 16);
-        meteorioid_medium = new TextureRegion(meteoroidTexture, 8, 8, 8, 8);
+        meteoroid_1 = new TextureRegion(meteoroidTexture, 8, 8, 16, 16);
+        meteoroid_2 = new TextureRegion(meteoroidTexture, 40, 8, 17, 17);
+        meteoroid_3 = new TextureRegion(meteoroidTexture, 66, 4, 26, 26);
+        meteoroid_4 = new TextureRegion(meteoroidTexture, 103, 8, 19, 17);
+        meteoroid_5 = new TextureRegion(meteoroidTexture, 130, 3, 28, 26);
 
         /*
             Load Bounding Box texture
@@ -52,31 +54,31 @@ public class AssetLoader {
         TARDIStexture = new Texture(Gdx.files.internal("TARDIS.png"));
         TARDIStexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
-        tardis_0 = new TextureRegion(TARDIStexture, 0, 0, 32, 32);
+        tardis_0 = new TextureRegion(TARDIStexture, 9, 3, 14, 26);
         tardis_0.flip(false, true);
-        tardis_1 = new TextureRegion(TARDIStexture, 32, 0, 32, 32);
+        tardis_1 = new TextureRegion(TARDIStexture, 41, 3, 14, 26);
         tardis_1.flip(false, true);
-        tardis_2 = new TextureRegion(TARDIStexture, 64, 0, 32, 32);
+        tardis_2 = new TextureRegion(TARDIStexture, 73, 3, 14, 26);
         tardis_2.flip(false, true);
-        tardis_3 = new TextureRegion(TARDIStexture, 96, 0, 32, 32);
+        tardis_3 = new TextureRegion(TARDIStexture, 105, 3, 14, 26);
         tardis_3.flip(false, true);
-        tardis_4 = new TextureRegion(TARDIStexture, 128, 0, 32, 32);
+        tardis_4 = new TextureRegion(TARDIStexture, 137, 3, 14, 26);
         tardis_4.flip(false, true);
-        tardis_5 = new TextureRegion(TARDIStexture, 160, 0, 32, 32);
+        tardis_5 = new TextureRegion(TARDIStexture, 169, 3, 14, 26);
         tardis_5.flip(false, true);
-        tardis_6 = new TextureRegion(TARDIStexture, 192, 0, 32, 32);
+        tardis_6 = new TextureRegion(TARDIStexture, 201, 3, 14, 26);
         tardis_6.flip(false, true);
-        tardis_7 = new TextureRegion(TARDIStexture, 224, 0, 32, 32);
+        tardis_7 = new TextureRegion(TARDIStexture, 233, 3, 14, 26);
         tardis_7.flip(false, true);
-        tardis_8 = new TextureRegion(TARDIStexture, 256, 0, 32, 32);
+        tardis_8 = new TextureRegion(TARDIStexture, 265, 3, 14, 26);
         tardis_8.flip(false, true);
-        tardis_9 = new TextureRegion(TARDIStexture, 288, 0, 32, 32);
+        tardis_9 = new TextureRegion(TARDIStexture, 297, 3, 14, 26);
         tardis_9.flip(false, true);
-        tardis_10 = new TextureRegion(TARDIStexture, 320, 0, 32, 32);
+        tardis_10 = new TextureRegion(TARDIStexture, 329, 3, 14, 26);
         tardis_10.flip(false, true);
-        tardis_11 = new TextureRegion(TARDIStexture, 352, 0, 32, 32);
+        tardis_11 = new TextureRegion(TARDIStexture, 361, 3, 14, 26);
         tardis_11.flip(false, true);
-        tardis_12 = new TextureRegion(TARDIStexture, 384, 0, 32, 32);
+        tardis_12 = new TextureRegion(TARDIStexture, 393, 3, 14, 26);
         tardis_12.flip(false, true);
 
         TextureRegion [] tardisSpin = {tardis_0, tardis_1, tardis_2, tardis_3, tardis_4, tardis_5, tardis_6, tardis_7, tardis_8, tardis_9, tardis_10, tardis_11, tardis_12};

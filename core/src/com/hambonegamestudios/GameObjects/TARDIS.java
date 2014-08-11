@@ -23,7 +23,7 @@ public class TARDIS {
         this.height = height;
         position = new Vector2(x, y);  // starts at the coordinates passed to the constructor
         velocity = new Vector2(0, 0);
-        acceleration = new Vector2(0, 460); // starts with positive y-axis acceleration to make it fall to the bottom of the screen
+        acceleration = new Vector2(0, 0);
         moveUp = false;
         moveDown = false;
         moveLeft = false;
