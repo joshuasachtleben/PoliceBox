@@ -146,7 +146,7 @@ public class GameRenderer {
 
         HUDbatch.begin();
         font.setColor(1, 1, 1, 1);
-        font.draw(HUDbatch, "Score: " + , 0, 0);
+        font.draw(HUDbatch, "Score: ", 0, 0);
         HUDbatch.end();
 
         if (debug) {
