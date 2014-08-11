@@ -2,6 +2,8 @@ package com.hambonegamestudios.GameObjects;
 
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+
 /**
  * Created by: Joshua Sachtleben
  * Date:       7/20/2014
@@ -17,6 +19,7 @@ public class TARDIS {
     private int width;
     private int height;
     private boolean moveUp, moveDown, moveLeft, moveRight;
+    private int health;
 
     public TARDIS(float x, float y, int width, int height) {
         this.width = width;
@@ -28,6 +31,7 @@ public class TARDIS {
         moveDown = false;
         moveLeft = false;
         moveRight = false;
+        health = 100;
     }
 
     public void update(float delta, int levelWidth, int levelHeight) {
@@ -98,5 +102,15 @@ public class TARDIS {
 
     public void setMoveRight(boolean x) {
         moveRight = x;
+    }
+
+    public void checkCollision(ArrayList<Meteoroid> meteoroids, float delta) {
+        for(Meteoroid meteoroid : meteoroids) {
+            if(meteoroid.getPosition().x + meteoroid.getWidth() >= this.getPosition().x && meteoroid.getPosition().x <= this.getPosition().x + this.getWidth() &&
+                    meteoroid.getPosition().y + meteoroid.getHeight() >= this.getPosition().y && meteoroid.getPosition().y <= this.getPosition().y + this.getHeight())
+                System.out.println("Collision with the Police Box.");
+            // Handle collision based on which side experienced the collision
+
+        }
     }
 }

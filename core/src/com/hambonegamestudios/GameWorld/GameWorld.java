@@ -33,8 +33,10 @@ public class GameWorld {
     public void update(float delta) {
         //System.out.println("GameWorld - update() called");
 
+        tardis.update(delta, width, height);
+        tardis.checkCollision(meteoroids, delta);
+
         for (int i = 0; i < meteoroids.size(); i++) {
-            meteoroids.get(i).checkPlayerCollision(tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
             if(meteoroids.get(i).checkBorderCollision()) {
                 meteoroids.remove(i);
                 meteoroids.add(new Meteoroid(this.getWidth(), this.getHeight(), true));
@@ -44,7 +46,7 @@ public class GameWorld {
 
             //System.out.println("Number of meteoroids: " + meteoroids.size());
         }
-        tardis.update(delta, width, height);
+
         score += 100;
     }
 

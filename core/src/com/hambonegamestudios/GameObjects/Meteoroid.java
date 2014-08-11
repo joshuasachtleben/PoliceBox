@@ -106,15 +106,6 @@ public class Meteoroid {
         meteoroid.setPosition(position.x, position.y);
     }
 
-    public void checkPlayerCollision(float x, float y, int width, int height) {
-        if (this.position.x + this.width + (this.velocity.x * Gdx.graphics.getDeltaTime()) >= x && x + width >= this.position.x + (this.velocity.x * Gdx.graphics.getDeltaTime()) &&
-                this.position.y + this.height + (this.velocity.y * Gdx.graphics.getDeltaTime()) >= y && y + height >= this.position.y + (this.velocity.y * Gdx.graphics.getDeltaTime())) {
-            //System.out.println("Meteoroid collision detected.");
-            velocity.x *= -1;
-            velocity.y *= -1;
-        }
-    }
-
     public void checkMeteoroidCollision(ArrayList<Meteoroid> otherMeteoroids, float delta) {
         for (Meteoroid otherMeteoroid : otherMeteoroids) {
 //            if (otherMeteoroids.get(i) != this &&
