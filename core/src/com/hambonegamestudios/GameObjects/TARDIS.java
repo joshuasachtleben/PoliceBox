@@ -39,13 +39,13 @@ public class TARDIS {
         //velocity.add(acceleration.cpy().scl(delta));
         //position.add(velocity.cpy().scl(delta));
 
-        if(moveUp) position.y -= 100 * delta;
-        if(moveDown) position.y += 100 * delta;
-        if(moveLeft) position.x -= 100 * delta;
-        if(moveRight) position.x += 100 * delta;
+        if (moveUp) position.y -= 100 * delta;
+        if (moveDown) position.y += 100 * delta;
+        if (moveLeft) position.x -= 100 * delta;
+        if (moveRight) position.x += 100 * delta;
 
 
-        if(position.x + this.width  > levelWidth) {
+        if (position.x + this.width > levelWidth) {
             position.x = levelWidth - this.width;
         }
         if (position.x <= 0) {
@@ -71,7 +71,7 @@ public class TARDIS {
         return height;
     }
 
-    public Vector2 getVelocity () {
+    public Vector2 getVelocity() {
         return velocity;
     }
 
@@ -84,7 +84,7 @@ public class TARDIS {
         this.velocity = velocity;
     }
 
-    public void setAcceleration(Vector2 acceleration){
+    public void setAcceleration(Vector2 acceleration) {
         this.acceleration = acceleration;
     }
 
@@ -104,13 +104,12 @@ public class TARDIS {
         moveRight = x;
     }
 
-    public void checkCollision(ArrayList<Meteoroid> meteoroids, float delta) {
-        for(Meteoroid meteoroid : meteoroids) {
-            if(meteoroid.getPosition().x + meteoroid.getWidth() >= this.getPosition().x && meteoroid.getPosition().x <= this.getPosition().x + this.getWidth() &&
-                    meteoroid.getPosition().y + meteoroid.getHeight() >= this.getPosition().y && meteoroid.getPosition().y <= this.getPosition().y + this.getHeight())
-                System.out.println("Collision with the Police Box.");
-            // Handle collision based on which side experienced the collision
-
+    public boolean checkCollision(Meteoroid meteoroid, float delta) {
+        if (meteoroid.getPosition().x + meteoroid.getWidth() >= this.getPosition().x && meteoroid.getPosition().x <= this.getPosition().x + this.getWidth() &&
+                meteoroid.getPosition().y + meteoroid.getHeight() >= this.getPosition().y && meteoroid.getPosition().y <= this.getPosition().y + this.getHeight()) {
+            System.out.println("Collision with the Police Box.");
+            return true;
         }
+        return false;
     }
 }
