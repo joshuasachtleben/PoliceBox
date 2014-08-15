@@ -21,6 +21,10 @@ public class GameWorld {
     private ArrayList<Meteoroid> meteoroids;
     private int score;
 
+    private GameState currentState;
+
+    private enum GameState {READY, RUNNING, GAMEOVER};
+
     public GameWorld() {
         tardis = new TARDIS(width/2, height/2, AssetLoader.tardis_0.getRegionWidth(), AssetLoader.tardis_0.getRegionHeight());
         meteoroids = new ArrayList<Meteoroid>();
@@ -43,6 +47,7 @@ public class GameWorld {
             }
             if(tardis.checkCollision(meteoroids.get(i), delta)) {
                 meteoroids.remove(i);
+                tardis.setHealth(-10);
             }
             meteoroids.get(i).checkMeteoroidCollision(meteoroids, delta);
             meteoroids.get(i).update(delta, width, height);

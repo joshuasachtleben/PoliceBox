@@ -104,6 +104,14 @@ public class TARDIS {
         moveRight = x;
     }
 
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int amount) {
+        health += amount;
+    }
+
     public boolean checkCollision(Meteoroid meteoroid, float delta) {
         if (meteoroid.getPosition().x + meteoroid.getWidth() >= this.getPosition().x && meteoroid.getPosition().x <= this.getPosition().x + this.getWidth() &&
                 meteoroid.getPosition().y + meteoroid.getHeight() >= this.getPosition().y && meteoroid.getPosition().y <= this.getPosition().y + this.getHeight()) {
