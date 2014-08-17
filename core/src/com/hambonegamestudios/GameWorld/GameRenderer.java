@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hambonegamestudios.GameHelpers.AssetLoader;
 import com.hambonegamestudios.GameObjects.Meteoroid;
+import com.hambonegamestudios.GameObjects.PoliceBox;
 import com.hambonegamestudios.GameObjects.Starfield;
-import com.hambonegamestudios.GameObjects.TARDIS;
 
 /**
  * Created by: Joshua Sachtleben
@@ -23,7 +23,7 @@ public class GameRenderer {
     private OrthographicCamera camera, HUDcamera;
     private int cameraWidth, cameraHeight;
     private Starfield starfield;
-    private TARDIS tardis;
+    private PoliceBox policeBox;
     private int tardisWidth, tardisHeight, tardisPositionX0, tardisPositionX1, tardisPositionY0, tardisPositionY1;
     private int worldLeft, worldRight, worldTop, worldBottom;
     private int cameraLeft, cameraRight, cameraTop, cameraBottom;
@@ -66,11 +66,11 @@ public class GameRenderer {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // Get TARDIS properties
-        tardisWidth = tardis.getWidth();
-        tardisHeight = tardis.getHeight();
-        tardisPositionX0 = (int) tardis.getPosition().x;
+        tardisWidth = policeBox.getWidth();
+        tardisHeight = policeBox.getHeight();
+        tardisPositionX0 = (int) policeBox.getPosition().x;
         tardisPositionX1 = tardisPositionX0 + tardisWidth;
-        tardisPositionY0 = (int) tardis.getPosition().y;
+        tardisPositionY0 = (int) policeBox.getPosition().y;
         tardisPositionY1 = tardisPositionY0 + tardisHeight;
 
         // Get World properties
@@ -83,7 +83,7 @@ public class GameRenderer {
         camera.viewportHeight = cameraHeight;
         camera.zoom = cameraZoom;
 
-        camera.position.set(tardis.getPosition().x + tardis.getWidth() / 2, tardis.getPosition().y + tardis.getHeight() / 2, 0);
+        camera.position.set(policeBox.getPosition().x + policeBox.getWidth() / 2, policeBox.getPosition().y + policeBox.getHeight() / 2, 0);
 
         // Get Camera properties
         cameraLeft = (int) (camera.position.x - (cameraWidth / 2 * camera.zoom));
@@ -115,7 +115,7 @@ public class GameRenderer {
         starfield.render(batch, delta);
 
         // Render the TARDIS
-        batch.draw(AssetLoader.tardisAnimation.getKeyFrame(runTime), tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
+        batch.draw(AssetLoader.tardisAnimation.getKeyFrame(runTime), policeBox.getPosition().x, policeBox.getPosition().y, policeBox.getWidth(), policeBox.getHeight());
 //        if(debug) {
 //            font.drawMultiLine(batch,
 //                    "TARDIS Location\n" +
@@ -141,22 +141,22 @@ public class GameRenderer {
 
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(1, 0, 0, 1);
-        renderer.rect(tardis.getPosition().x - (tardis.getWidth() / 2), tardis.getPosition().y - 10, tardis.getWidth() * 2, 5);
+        renderer.rect(policeBox.getPosition().x - (policeBox.getWidth() / 2), policeBox.getPosition().y - 10, policeBox.getWidth() * 2, 5);
         renderer.setColor(0, 1, 0, 1);
-        renderer.rect(tardis.getPosition().x - (tardis.getWidth() / 2), tardis.getPosition().y - 10, tardis.getLifebarWidth(), 5);
+        renderer.rect(policeBox.getPosition().x - (policeBox.getWidth() / 2), policeBox.getPosition().y - 10, policeBox.getLifebarWidth(), 5);
         renderer.end();
 
         /* Draw HUD elements */
 
         HUDbatch.begin();
         font.setColor(1, 1, 1, 1);
-        font.drawMultiLine(HUDbatch, "Score: " + Integer.toString(myWorld.getScore()) + "\n" + "Health: " + tardis.getHealth() + "\n" + "Meteoroids: " + myWorld.getMeteoroids().size(), 0, 0);
+        font.drawMultiLine(HUDbatch, "Score: " + Integer.toString(myWorld.getScore()) + "\n" + "Health: " + policeBox.getHealth() + "\n" + "Meteoroids: " + myWorld.getMeteoroids().size(), 0, 0);
         HUDbatch.end();
 
         if (debug) {
             renderer.begin(ShapeRenderer.ShapeType.Filled);
             renderer.setColor(1, 0, 0, 1);
-            renderer.rect(tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
+            renderer.rect(policeBox.getPosition().x, policeBox.getPosition().y, policeBox.getWidth(), policeBox.getHeight());
             for (Meteoroid meteoroid : myWorld.getMeteoroids()) {
                 renderer.rect(meteoroid.getPosition().x, meteoroid.getPosition().y, meteoroid.getWidth(), meteoroid.getHeight());
             }
@@ -181,7 +181,7 @@ public class GameRenderer {
     public void initGameObjects() {
         starfield = new Starfield(myWorld.getWidth(), myWorld.getHeight(), 2000);
 
-        tardis = myWorld.getTardis();
+        policeBox = myWorld.getPoliceBox();
     }
 
     public void setCameraZoom(float zoomAmount) {

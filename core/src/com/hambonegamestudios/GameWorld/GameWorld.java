@@ -3,7 +3,7 @@ package com.hambonegamestudios.GameWorld;
 import com.badlogic.gdx.Gdx;
 import com.hambonegamestudios.GameHelpers.AssetLoader;
 import com.hambonegamestudios.GameObjects.Meteoroid;
-import com.hambonegamestudios.GameObjects.TARDIS;
+import com.hambonegamestudios.GameObjects.PoliceBox;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class GameWorld {
 
     private int width = Gdx.graphics.getWidth();//1024;
     private int height = Gdx.graphics.getHeight();//1024;
-    private TARDIS tardis;
+    private PoliceBox policeBox;
     private ArrayList<Meteoroid> meteoroids;
     private int score;
 
@@ -26,7 +26,7 @@ public class GameWorld {
     private enum GameState {READY, RUNNING, GAMEOVER};
 
     public GameWorld() {
-        tardis = new TARDIS(width/2, height/2, AssetLoader.tardis_0.getRegionWidth(), AssetLoader.tardis_0.getRegionHeight());
+        policeBox = new PoliceBox(width/2, height/2, AssetLoader.tardis_0.getRegionWidth(), AssetLoader.tardis_0.getRegionHeight());
         meteoroids = new ArrayList<Meteoroid>();
         for(int i = 0; i < 50; i++) {
             meteoroids.add(new Meteoroid(this.getWidth(), this.getHeight(), false));
@@ -37,16 +37,16 @@ public class GameWorld {
     public void update(float delta) {
         //System.out.println("GameWorld - update() called");
 
-        tardis.update(delta, width, height);
+        policeBox.update(delta, width, height);
 
         for (int i = 0; i < meteoroids.size(); i++) {
             if(meteoroids.get(i).checkBorderCollision()) {
                 meteoroids.add(new Meteoroid(this.getWidth(), this.getHeight(), true));
                 meteoroids.remove(i);
             }
-            if(tardis.checkCollision(meteoroids.get(i), delta)) {
+            if(policeBox.checkCollision(meteoroids.get(i), delta)) {
                 meteoroids.remove(i);
-                tardis.setHealth(-10);
+                policeBox.setHealth(-10);
             }
             meteoroids.get(i).checkMeteoroidCollision(meteoroids, delta);
             meteoroids.get(i).update(delta, width, height);
@@ -57,8 +57,8 @@ public class GameWorld {
         score += 100;
     }
 
-    public TARDIS getTardis(){
-        return tardis;
+    public PoliceBox getPoliceBox(){
+        return policeBox;
     }
 
     public ArrayList<Meteoroid> getMeteoroids() {

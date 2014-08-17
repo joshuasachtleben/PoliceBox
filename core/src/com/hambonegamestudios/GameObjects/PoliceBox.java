@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Time:       1:55 PM
  * Project:    PoliceBox
  */
-public class TARDIS {
+public class PoliceBox {
 
     private Vector2 position;
     private Vector2 velocity;
@@ -21,7 +21,7 @@ public class TARDIS {
     private boolean moveUp, moveDown, moveLeft, moveRight;
     private float health, maxHealth, lifebarWidth, lifebarMaxWidth;
 
-    public TARDIS(float x, float y, int width, int height) {
+    public PoliceBox(float x, float y, int width, int height) {
         this.width = width;
         this.height = height;
         position = new Vector2(x, y);  // starts at the coordinates passed to the constructor
@@ -63,7 +63,7 @@ public class TARDIS {
     }
 
     public void onClick() {
-        System.out.println("TARDIS click");
+
     }
 
     public int getWidth() {

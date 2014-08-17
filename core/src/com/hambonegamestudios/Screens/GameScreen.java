@@ -24,7 +24,7 @@ public class GameScreen implements Screen{
         renderer = new GameRenderer(world);
 
         // Attaching InputHandler
-        Gdx.input.setInputProcessor(new InputHandler(world.getTardis(), world.getMeteoroids(), renderer));
+        Gdx.input.setInputProcessor(new InputHandler(world.getPoliceBox(), world.getMeteoroids(), renderer));
     }
 
     @Override

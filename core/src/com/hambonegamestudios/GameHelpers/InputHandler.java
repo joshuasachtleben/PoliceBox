@@ -3,9 +3,8 @@ package com.hambonegamestudios.GameHelpers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Vector2;
 import com.hambonegamestudios.GameObjects.Meteoroid;
-import com.hambonegamestudios.GameObjects.TARDIS;
+import com.hambonegamestudios.GameObjects.PoliceBox;
 import com.hambonegamestudios.GameWorld.GameRenderer;
 
 import java.util.ArrayList;
@@ -18,12 +17,12 @@ import java.util.ArrayList;
  */
 public class InputHandler implements InputProcessor{
 
-    private TARDIS tardis;
+    private PoliceBox policeBox;
     private GameRenderer renderer;
     private ArrayList<Meteoroid> meteoroids;
 
-    public InputHandler(TARDIS tardis, ArrayList<Meteoroid> meteoroids, GameRenderer renderer) {
-        this.tardis = tardis;
+    public InputHandler(PoliceBox policeBox, ArrayList<Meteoroid> meteoroids, GameRenderer renderer) {
+        this.policeBox = policeBox;
         this.meteoroids = meteoroids;
         this.renderer = renderer;
     }
@@ -32,16 +31,16 @@ public class InputHandler implements InputProcessor{
     public boolean keyDown(int keycode) {
         switch(keycode) {
             case Input.Keys.W:
-                tardis.setMoveUp(true);
+                policeBox.setMoveUp(true);
                 break;
             case Input.Keys.A:
-                tardis.setMoveLeft(true);
+                policeBox.setMoveLeft(true);
                 break;
             case Input.Keys.S:
-                tardis.setMoveDown(true);
+                policeBox.setMoveDown(true);
                 break;
             case Input.Keys.D:
-                tardis.setMoveRight(true);
+                policeBox.setMoveRight(true);
                 break;
             case Input.Keys.LEFT_BRACKET:
                 renderer.setCameraZoom(-1f);
@@ -64,16 +63,16 @@ public class InputHandler implements InputProcessor{
     public boolean keyUp(int keycode) {
         switch(keycode) {
             case Input.Keys.W:
-                tardis.setMoveUp(false);
+                policeBox.setMoveUp(false);
                 break;
             case Input.Keys.A:
-                tardis.setMoveLeft(false);
+                policeBox.setMoveLeft(false);
                 break;
             case Input.Keys.S:
-                tardis.setMoveDown(false);
+                policeBox.setMoveDown(false);
                 break;
             case Input.Keys.D:
-                tardis.setMoveRight(false);
+                policeBox.setMoveRight(false);
                 break;
             case Input.Keys.F11:
                 Gdx.graphics.setDisplayMode(920, 920/16*9, false);
@@ -91,7 +90,7 @@ public class InputHandler implements InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        tardis.onClick();
+        policeBox.onClick();
         meteoroids.add(new Meteoroid(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(), true));
         return true;
     }
