@@ -19,6 +19,7 @@ public class AssetLoader {
     public static Texture meteoroidTexture;
     public static TextureRegion meteoroid_1, meteoroid_2, meteoroid_3, meteoroid_4, meteoroid_5;
     public static TextureRegion tardis_0, tardis_1, tardis_2, tardis_3, tardis_4, tardis_5, tardis_6, tardis_7, tardis_8, tardis_9, tardis_10, tardis_11, tardis_12;
+    public static Texture
     public static Animation tardisAnimation;
 
     public static void load() {
@@ -35,11 +36,8 @@ public class AssetLoader {
         //meteoroidTexture = new Texture(Gdx.files.internal("meteoroid_32x32.png"));
         //meteoroidTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         meteoroidTexture = new Texture(Gdx.files.internal("meteoroids.png"));
-        meteoroid_1 = new TextureRegion(meteoroidTexture, 8, 8, 16, 16);
-        meteoroid_2 = new TextureRegion(meteoroidTexture, 40, 8, 17, 17);
-        meteoroid_3 = new TextureRegion(meteoroidTexture, 66, 4, 26, 26);
-        meteoroid_4 = new TextureRegion(meteoroidTexture, 103, 8, 19, 17);
-        meteoroid_5 = new TextureRegion(meteoroidTexture, 130, 3, 28, 26);
+        meteoroid_1 = new TextureRegion(meteoroidTexture, 33, 1, 31, 31);
+        meteoroid_2 = new TextureRegion(meteoroidTexture, 65, 2, 31, 28);
 
         /*
             Load Bounding Box texture
@@ -84,6 +82,10 @@ public class AssetLoader {
         TextureRegion [] tardisSpin = {tardis_0, tardis_1, tardis_2, tardis_3, tardis_4, tardis_5, tardis_6, tardis_7, tardis_8, tardis_9, tardis_10, tardis_11, tardis_12};
         tardisAnimation = new Animation(.12f, tardisSpin);
         tardisAnimation.setPlayMode(Animation.PlayMode.LOOP);
+
+        /* Load explosion textures */
+
+
     }
 
     public static void dispose() {

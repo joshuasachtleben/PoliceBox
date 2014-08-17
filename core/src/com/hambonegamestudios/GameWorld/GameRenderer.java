@@ -4,15 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hambonegamestudios.GameHelpers.AssetLoader;
 import com.hambonegamestudios.GameObjects.Meteoroid;
 import com.hambonegamestudios.GameObjects.Starfield;
 import com.hambonegamestudios.GameObjects.TARDIS;
-
-import java.util.ArrayList;
 
 /**
  * Created by: Joshua Sachtleben
@@ -146,11 +143,11 @@ public class GameRenderer {
 
         HUDbatch.begin();
         font.setColor(1, 1, 1, 1);
-        font.drawMultiLine(HUDbatch, "Score: " + Integer.toString(myWorld.getScore()) + "\n" + "Health: " + tardis.getHealth(), 0, 0);
+        font.drawMultiLine(HUDbatch, "Score: " + Integer.toString(myWorld.getScore()) + "\n" + "Health: " + tardis.getHealth() + "\n" + "Meteoroids: " + myWorld.getMeteoroids().size(), 0, 0);
         HUDbatch.end();
 
         if (debug) {
-            renderer.begin(ShapeRenderer.ShapeType.Line);
+            renderer.begin(ShapeRenderer.ShapeType.Filled);
             renderer.setColor(1, 0, 0, 1);
             renderer.rect(tardis.getPosition().x, tardis.getPosition().y, tardis.getWidth(), tardis.getHeight());
             for (Meteoroid meteoroid : myWorld.getMeteoroids()) {

@@ -27,22 +27,13 @@ public class Meteoroid {
 
     public Meteoroid(int worldWidth, int worldHeight, boolean spawn) {
         Random random = new Random();
-        int t = random.nextInt(5);
+        int t = random.nextInt(2);
         switch(t) {
-            case 1:
+            case 0:
                 meteoroid = new Sprite(AssetLoader.meteoroid_1);
                 break;
-            case 2:
+            case 1:
                 meteoroid = new Sprite(AssetLoader.meteoroid_2);
-                break;
-            case 3:
-                meteoroid = new Sprite(AssetLoader.meteoroid_3);
-                break;
-            case 4:
-                meteoroid = new Sprite(AssetLoader.meteoroid_4);
-                break;
-            case 5:
-                meteoroid = new Sprite(AssetLoader.meteoroid_5);
                 break;
             default:
                 meteoroid = new Sprite(AssetLoader.meteoroid_1);
@@ -86,7 +77,7 @@ public class Meteoroid {
             }
 
         }
-        rotation = random.nextInt(360);
+        rotation = random.nextInt(180);
 
         // set scale of sprite
         meteoroid.setScale(1, 1);
