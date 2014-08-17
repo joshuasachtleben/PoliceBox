@@ -27,7 +27,6 @@ public class GameRenderer {
     private int tardisWidth, tardisHeight, tardisPositionX0, tardisPositionX1, tardisPositionY0, tardisPositionY1;
     private int worldLeft, worldRight, worldTop, worldBottom;
     private int cameraLeft, cameraRight, cameraTop, cameraBottom;
-    private BitmapFont font;
     private SpriteBatch batch, HUDbatch;
     private float cameraZoom;
     private boolean debug = false;
@@ -38,8 +37,6 @@ public class GameRenderer {
         myWorld = world;
         cameraWidth = Gdx.graphics.getWidth();
         cameraHeight = Gdx.graphics.getHeight();
-        font = new BitmapFont(true);
-        font.setColor(Color.WHITE);
 
         camera = new OrthographicCamera();
         HUDcamera = new OrthographicCamera();
@@ -107,7 +104,16 @@ public class GameRenderer {
         starfield.render(batch, delta);
 
         // Render the TARDIS
-        batch.draw(AssetLoader.tardisAnimation.getKeyFrame(runTime), policeBox.getPosition().x, policeBox.getPosition().y, policeBox.getWidth(), policeBox.getHeight());
+        switch (myWorld.getCurrentState()) {
+            case READY:
+                batch.draw(AssetLoader.tardisAnimation.getKeyFrame(runTime), policeBox.getPosition().x, policeBox.getPosition().y, policeBox.getWidth(), policeBox.getHeight());
+                break;
+            case RUNNING:
+                batch.draw(AssetLoader.tardisAnimation.getKeyFrame(runTime), policeBox.getPosition().x, policeBox.getPosition().y, policeBox.getWidth(), policeBox.getHeight());
+                break;
+            case GAMEOVER:
+                break;
+        }
 
         // Render the meteoroids
         for (Meteoroid meteoroid : myWorld.getMeteoroids()) {
@@ -115,24 +121,33 @@ public class GameRenderer {
         }
         batch.end();
 
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.setColor(1, 0, 0, 1);
-        renderer.rect(policeBox.getPosition().x - (policeBox.getWidth() / 2), policeBox.getPosition().y - 10, policeBox.getWidth() * 2, 3);
-        renderer.setColor(0, 1, 0, 1);
-        renderer.rect(policeBox.getPosition().x - (policeBox.getWidth() / 2), policeBox.getPosition().y - 10, policeBox.getLifebarWidth(), 3);
-        renderer.end();
-        renderer.begin(ShapeRenderer.ShapeType.Line);
-        renderer.setColor(0, 0, 0, 1);
-        renderer.rect(policeBox.getPosition().x - (policeBox.getWidth() / 2), policeBox.getPosition().y - 10, policeBox.getWidth() * 2, 3);
-        renderer.end();
+        if(myWorld.getCurrentState() != GameWorld.GameState.GAMEOVER) {
+            renderer.begin(ShapeRenderer.ShapeType.Filled);
+            renderer.setColor(1, 0, 0, 1);
+            renderer.rect(policeBox.getPosition().x - (policeBox.getWidth() / 2), policeBox.getPosition().y - 10, policeBox.getWidth() * 2, 3);
+            renderer.setColor(0, 1, 0, 1);
+            renderer.rect(policeBox.getPosition().x - (policeBox.getWidth() / 2), policeBox.getPosition().y - 10, policeBox.getLifebarWidth(), 3);
+            renderer.end();
+            renderer.begin(ShapeRenderer.ShapeType.Line);
+            renderer.setColor(0, 0, 0, 1);
+            renderer.rect(policeBox.getPosition().x - (policeBox.getWidth() / 2), policeBox.getPosition().y - 10, policeBox.getWidth() * 2, 3);
+            renderer.end();
+        }
 
         /* Draw HUD elements */
 
         HUDbatch.begin();
-        font.setColor(1, 1, 1, 1);
-        font.drawMultiLine(HUDbatch, "Score: " + Integer.toString(myWorld.getScore()) + "\n" + "Health: " + policeBox.getHealth() + "\n" + "Meteoroids: " + myWorld.getMeteoroids().size(), 0, 0);
+        AssetLoader.shadow.setScale(.25f, -.25f);
+        AssetLoader.shadow.setColor(1, 1, 1, 1);
+        AssetLoader.font.setScale(.25f, -.25f);
+        AssetLoader.font.setColor(1, 1, 1, 1);
+        AssetLoader.shadow.drawMultiLine(HUDbatch, "Score: " + Integer.toString(myWorld.getScore()) + "\n" + "Health: " + Integer.toString((int)policeBox.getHealth()), 0, 0);
+        AssetLoader.font.drawMultiLine(HUDbatch, "Score: " + Integer.toString(myWorld.getScore()) + "\n" + "Health: " + Integer.toString((int)policeBox.getHealth()), 0, 0);
         if(myWorld.getCurrentState() == GameWorld.GameState.GAMEOVER) {
-            font.draw(HUDbatch, "GAME OVER!", (cameraWidth / 2) - (font.getBounds("GAME OVER").width / 2), (cameraHeight / 2) - (font.getBounds("GAME OVER").height / 2));
+            AssetLoader.shadow.setScale(1, -1);
+            AssetLoader.shadow.draw(HUDbatch, "GAME OVER!", (cameraWidth / 2) - (AssetLoader.shadow.getBounds("GAME OVER").width / 2), (cameraHeight / 2) + (AssetLoader.shadow.getBounds("GAME OVER").height / 2));
+            AssetLoader.font.setScale(1, -1);
+            AssetLoader.font.draw(HUDbatch, "GAME OVER!", (cameraWidth / 2) - (AssetLoader.font.getBounds("GAME OVER").width / 2), (cameraHeight / 2) + (AssetLoader.font.getBounds("GAME OVER").height / 2));
         }
         HUDbatch.end();
 
@@ -175,7 +190,6 @@ public class GameRenderer {
 
     public void dispose() {
         batch.dispose();
-        font.dispose();
         renderer.dispose();
         AssetLoader.dispose();
     }

@@ -3,6 +3,7 @@ package com.hambonegamestudios.GameHelpers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -20,9 +21,18 @@ public class AssetLoader {
     public static TextureRegion meteoroid_1, meteoroid_2, meteoroid_3, meteoroid_4, meteoroid_5;
     public static TextureRegion tardis_0, tardis_1, tardis_2, tardis_3, tardis_4, tardis_5, tardis_6, tardis_7, tardis_8, tardis_9, tardis_10, tardis_11, tardis_12;
     //public static Texture
+    public static BitmapFont font, shadow;
     public static Animation tardisAnimation;
 
     public static void load() {
+
+        /*
+            Load fonts
+         */
+        font = new BitmapFont(Gdx.files.internal("fonts/text.fnt"));
+        font.setScale(.25f, -.25f);
+        shadow = new BitmapFont(Gdx.files.internal("fonts/shadow.fnt"));
+        shadow.setScale(.25f, -.25f);
 
         /*
             Load Star texture
@@ -93,5 +103,7 @@ public class AssetLoader {
         TARDIStexture.dispose();
         boundingBoxTexture.dispose();
         meteoroidTexture.dispose();
+        font.dispose();
+        shadow.dispose();
     }
 }
