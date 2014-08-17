@@ -32,9 +32,25 @@ public class GameWorld {
             meteoroids.add(new Meteoroid(this.getWidth(), this.getHeight(), false));
         }
         score = 0;
+        currentState = GameState.RUNNING;
     }
 
     public void update(float delta) {
+        switch(currentState){
+            case READY:
+                // do nothing for now
+                break;
+            case RUNNING:
+                updateRunning(delta);
+                break;
+            case GAMEOVER:
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void updateRunning(float delta) {
         //System.out.println("GameWorld - update() called");
 
         policeBox.update(delta, width, height);
@@ -47,6 +63,7 @@ public class GameWorld {
             if(policeBox.checkCollision(meteoroids.get(i), delta)) {
                 meteoroids.remove(i);
                 policeBox.setHealth(-10);
+                if(policeBox.getHealth() <= 0) currentState = GameState.GAMEOVER;
             }
             meteoroids.get(i).checkMeteoroidCollision(meteoroids, delta);
             meteoroids.get(i).update(delta, width, height);
@@ -74,4 +91,12 @@ public class GameWorld {
     }
 
     public int getScore() { return score; }
+
+    public GameState getCurrentState() {
+        return currentState;
+    }
+
+    public void setCurrentState(GameState state) {
+        currentState = state;
+    }
 }

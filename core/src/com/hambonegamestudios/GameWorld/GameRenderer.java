@@ -65,14 +65,6 @@ public class GameRenderer {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Get TARDIS properties
-        tardisWidth = policeBox.getWidth();
-        tardisHeight = policeBox.getHeight();
-        tardisPositionX0 = (int) policeBox.getPosition().x;
-        tardisPositionX1 = tardisPositionX0 + tardisWidth;
-        tardisPositionY0 = (int) policeBox.getPosition().y;
-        tardisPositionY1 = tardisPositionY0 + tardisHeight;
-
         // Get World properties
         worldLeft = 0;
         worldRight = myWorld.getWidth();
@@ -116,22 +108,6 @@ public class GameRenderer {
 
         // Render the TARDIS
         batch.draw(AssetLoader.tardisAnimation.getKeyFrame(runTime), policeBox.getPosition().x, policeBox.getPosition().y, policeBox.getWidth(), policeBox.getHeight());
-//        if(debug) {
-//            font.drawMultiLine(batch,
-//                    "TARDIS Location\n" +
-//                            "X0: " + tardisPositionX0 + "\n" +
-//                            "X1: " + tardisPositionX1 + "\n" +
-//                            "Y0: " + tardisPositionY0 + "\n" +
-//                            "Y1: " + tardisPositionY1 + "\n" +
-//                            "Camera Position (x, y): " + (int) camera.position.x + "," + (int) camera.position.y + "\n" +
-//                            "Camera Left: " + cameraLeft + "\n" +
-//                            "Camera Right: " + cameraRight + "\n" +
-//                            "Camera Top: " + cameraTop + "\n" +
-//                            "Camera Bottom: " + cameraBottom + "\n" +
-//                            "Camera Zoom: " + camera.zoom + " (float), " + (int) camera.zoom + " (int)"
-//                    ,
-//                    camera.position.x - (Gdx.graphics.getWidth() / 2 * cameraZoom), camera.position.y - (Gdx.graphics.getHeight() / 2 * cameraZoom));
-//        }
 
         // Render the meteoroids
         for (Meteoroid meteoroid : myWorld.getMeteoroids()) {
@@ -162,14 +138,6 @@ public class GameRenderer {
             }
             renderer.end();
         }
-
-        // Draw center crosshair for debugging
-//        shapeRenderer.begin(ShapeType.Line);
-//        shapeRenderer.setColor(1, 0, 0, 1);
-//        shapeRenderer.circle(width / 2, height / 2, 10);
-//        shapeRenderer.line(width/2, 0, width/2, height);
-//        shapeRenderer.line(0, height/2, width, height/2);
-//        shapeRenderer.end();
     }
 
     public void resize(int width, int height) {
