@@ -117,9 +117,13 @@ public class GameRenderer {
 
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(1, 0, 0, 1);
-        renderer.rect(policeBox.getPosition().x - (policeBox.getWidth() / 2), policeBox.getPosition().y - 10, policeBox.getWidth() * 2, 5);
+        renderer.rect(policeBox.getPosition().x - (policeBox.getWidth() / 2), policeBox.getPosition().y - 10, policeBox.getWidth() * 2, 3);
         renderer.setColor(0, 1, 0, 1);
-        renderer.rect(policeBox.getPosition().x - (policeBox.getWidth() / 2), policeBox.getPosition().y - 10, policeBox.getLifebarWidth(), 5);
+        renderer.rect(policeBox.getPosition().x - (policeBox.getWidth() / 2), policeBox.getPosition().y - 10, policeBox.getLifebarWidth(), 3);
+        renderer.end();
+        renderer.begin(ShapeRenderer.ShapeType.Line);
+        renderer.setColor(0, 0, 0, 1);
+        renderer.rect(policeBox.getPosition().x - (policeBox.getWidth() / 2), policeBox.getPosition().y - 10, policeBox.getWidth() * 2, 3);
         renderer.end();
 
         /* Draw HUD elements */
@@ -127,6 +131,9 @@ public class GameRenderer {
         HUDbatch.begin();
         font.setColor(1, 1, 1, 1);
         font.drawMultiLine(HUDbatch, "Score: " + Integer.toString(myWorld.getScore()) + "\n" + "Health: " + policeBox.getHealth() + "\n" + "Meteoroids: " + myWorld.getMeteoroids().size(), 0, 0);
+        if(myWorld.getCurrentState() == GameWorld.GameState.GAMEOVER) {
+            font.draw(HUDbatch, "GAME OVER!", (cameraWidth / 2) - (font.getBounds("GAME OVER").width / 2), (cameraHeight / 2) - (font.getBounds("GAME OVER").height / 2));
+        }
         HUDbatch.end();
 
         if (debug) {

@@ -23,7 +23,7 @@ public class GameWorld {
 
     private GameState currentState;
 
-    private enum GameState {READY, RUNNING, GAMEOVER};
+    public enum GameState {READY, RUNNING, GAMEOVER};
 
     public GameWorld() {
         policeBox = new PoliceBox(width/2, height/2, AssetLoader.tardis_0.getRegionWidth(), AssetLoader.tardis_0.getRegionHeight());
@@ -63,7 +63,9 @@ public class GameWorld {
             if(policeBox.checkCollision(meteoroids.get(i), delta)) {
                 meteoroids.remove(i);
                 policeBox.setHealth(-10);
-                if(policeBox.getHealth() <= 0) currentState = GameState.GAMEOVER;
+                if(policeBox.getHealth() <= 0) {
+                    currentState = GameState.GAMEOVER;
+                }
             }
             meteoroids.get(i).checkMeteoroidCollision(meteoroids, delta);
             meteoroids.get(i).update(delta, width, height);
