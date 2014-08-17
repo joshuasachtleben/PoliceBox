@@ -19,7 +19,7 @@ public class AssetLoader {
     public static Texture meteoroidTexture;
     public static TextureRegion meteoroid_1, meteoroid_2, meteoroid_3, meteoroid_4, meteoroid_5;
     public static TextureRegion tardis_0, tardis_1, tardis_2, tardis_3, tardis_4, tardis_5, tardis_6, tardis_7, tardis_8, tardis_9, tardis_10, tardis_11, tardis_12;
-    public static Texture
+    //public static Texture
     public static Animation tardisAnimation;
 
     public static void load() {

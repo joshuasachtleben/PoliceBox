@@ -139,6 +139,13 @@ public class GameRenderer {
         }
         batch.end();
 
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        renderer.setColor(1, 0, 0, 1);
+        renderer.rect(tardis.getPosition().x - (tardis.getWidth() / 2), tardis.getPosition().y - 10, tardis.getWidth() * 2, 5);
+        renderer.setColor(0, 1, 0, 1);
+        renderer.rect(tardis.getPosition().x - (tardis.getWidth() / 2), tardis.getPosition().y - 10, tardis.getLifebarWidth(), 5);
+        renderer.end();
+
         /* Draw HUD elements */
 
         HUDbatch.begin();

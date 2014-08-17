@@ -19,7 +19,7 @@ public class TARDIS {
     private int width;
     private int height;
     private boolean moveUp, moveDown, moveLeft, moveRight;
-    private int health;
+    private float health, maxHealth, lifebarWidth, lifebarMaxWidth;
 
     public TARDIS(float x, float y, int width, int height) {
         this.width = width;
@@ -31,7 +31,10 @@ public class TARDIS {
         moveDown = false;
         moveLeft = false;
         moveRight = false;
-        health = 100;
+        maxHealth = 100;
+        health = maxHealth;
+        lifebarMaxWidth = this.width * 2;
+        lifebarWidth = lifebarMaxWidth;
     }
 
     public void update(float delta, int levelWidth, int levelHeight) {
@@ -104,12 +107,22 @@ public class TARDIS {
         moveRight = x;
     }
 
-    public int getHealth() {
+    public float getHealth() {
         return health;
     }
 
     public void setHealth(int amount) {
         health += amount;
+        if(health <0) health = 0;
+        setLifebarWidth(health / maxHealth);
+}
+
+    public float getLifebarWidth() {
+        return lifebarWidth;
+    }
+
+    public void setLifebarWidth(float healthScale) {
+        lifebarWidth = lifebarMaxWidth * healthScale;
     }
 
     public boolean checkCollision(Meteoroid meteoroid, float delta) {

@@ -15,8 +15,8 @@ import java.util.ArrayList;
  */
 public class GameWorld {
 
-    private int width = 2048;
-    private int height = 2048;
+    private int width = Gdx.graphics.getWidth();//1024;
+    private int height = Gdx.graphics.getHeight();//1024;
     private TARDIS tardis;
     private ArrayList<Meteoroid> meteoroids;
     private int score;
@@ -28,7 +28,7 @@ public class GameWorld {
     public GameWorld() {
         tardis = new TARDIS(width/2, height/2, AssetLoader.tardis_0.getRegionWidth(), AssetLoader.tardis_0.getRegionHeight());
         meteoroids = new ArrayList<Meteoroid>();
-        for(int i = 0; i < 200; i++) {
+        for(int i = 0; i < 50; i++) {
             meteoroids.add(new Meteoroid(this.getWidth(), this.getHeight(), false));
         }
         score = 0;
@@ -39,11 +39,10 @@ public class GameWorld {
 
         tardis.update(delta, width, height);
 
-
         for (int i = 0; i < meteoroids.size(); i++) {
             if(meteoroids.get(i).checkBorderCollision()) {
-                meteoroids.remove(i);
                 meteoroids.add(new Meteoroid(this.getWidth(), this.getHeight(), true));
+                meteoroids.remove(i);
             }
             if(tardis.checkCollision(meteoroids.get(i), delta)) {
                 meteoroids.remove(i);
